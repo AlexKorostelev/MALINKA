@@ -1,0 +1,18 @@
+.Container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  text-align: center;
+}
+
+.StepButtons {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.Paragraph {
+  width: 800px;
+  margin-top: 25px;
+}
