@@ -25,6 +25,6 @@ app.use(cors())
 app.use('/', indexRouter)
 
 
-const PORT = process.env.PORT ?? 3001
+const PORT = process.env.PORT ?? 3002
 // connect
 app.listen(PORT, () => console.log('server started on port', PORT))

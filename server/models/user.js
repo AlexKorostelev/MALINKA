@@ -13,6 +13,10 @@ const UserSchema = mongoose.Schema({
     type: String,
     required: true,
   },
+  tgLogin: {
+    type: String,
+    required: true,
+  },
   homes: [{
     type: mongoose.Schema.Types.ObjectId,
     ref: 'Home',

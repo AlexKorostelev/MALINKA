@@ -84,6 +84,7 @@ async function seedUser() {
     name: lorem.generateWords(1),
     password: sha256('123'),
     email: lorem.generateWords(1),
+    tgLogin: lorem.generateWords(1),
     homes: ArrIdHomes,
   })
 
@@ -92,6 +93,6 @@ async function seedUser() {
   console.log('DB disconnected');
 }
 
-// seedUser()
+seedUser()
 // seedHome()
 // seed(PinSettings, [testSetting, testSetting1, testSetting2])
