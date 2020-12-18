@@ -3,14 +3,36 @@ const { Telegraf } = require('telegraf');
 const fetch = require('node-fetch');
 const request = require('request');
 const fs = require('fs');
+const mongoose = require('mongoose');
+const User = require('./user');
+const Home = require('./home');
 const telegramBotToken = process.env.BOT_TOKEN;
 const folderId = process.env.FOLDER_ID;
 const yandexToken = process.env.YANDEX_TOKEN;
+const mongoDB = process.env.MONGOOSE_DB;
 const bot = new Telegraf(telegramBotToken);
 
-bot.start((ctx) => ctx.reply(`Greetings, ${ctx.message.from.username}`));
-bot.help((ctx) => ctx.reply('Send me a sticker'));
+mongoose.connect(mongoDB, { useNewUrlParser: true });
+const connection = mongoose.connection;
+connection.once('open', async () => {
+  console.log('MongoDB database connection established successfully');
+});
 
+let userTelegramName = '';
+bot.start(async (ctx) => {
+  userTelegramName = ctx.message.from.username;
+  ctx.reply(`Greetings, ${userTelegramName}`);
+});
+bot.help(async (ctx) => {
+  ctx.reply(`I am ready to give you a hand, ${userTelegramName}`);
+});
+bot.command('myHomes', async (ctx) => {
+  let userHomes = await User.findOne({ tgLogin: userTelegramName }).populate('homes');
+  let userHomesToReturn = userHomes.homes.map(
+    (eachHome) => `${eachHome.name}`
+  );
+  ctx.reply(`Here is the list of your homes:\n${userHomesToReturn.join('\n')}`);
+});
 bot.on('message', async (ctx) => {
   if (!ctx.update.message.voice) {
     ctx.reply('Could you please send Audio message instead');
