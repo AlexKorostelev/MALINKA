@@ -3,14 +3,12 @@ import {
   Switch,
   Route,
 } from "react-router-dom";
-import Header from './Header/Header'
-import Main from './Main/Main'
-import Cabinet from './Cabinet/Cabinet'
+import Main from './components/Main/Main'
+import Cabinet from './components/Cabinet/Cabinet'
 
 function App() {
   return (
     <Router>
-      <Header />
 
       <Switch>
 
@@ -27,4 +25,4 @@ function App() {
   );
 }
 
-export default App;
+export default App
