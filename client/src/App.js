@@ -1,8 +1,10 @@
+import React from 'react';
+import Microphone from './components/Microphone/Microphone';
 
 function App() {
   return (
     <>
-      <h1>Main</h1>
+      <Microphone />
     </>
   );
 }
