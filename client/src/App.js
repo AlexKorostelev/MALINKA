@@ -4,7 +4,7 @@ import {
   Route,
 } from "react-router-dom";
 import Main from './components/Main/Main'
-import Cabinet from './Cabinet/Cabinet'
+import Cabinet from './components/Cabinet/Cabinet'
 
 function App() {
   return (
