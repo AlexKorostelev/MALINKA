@@ -20,7 +20,6 @@ export default function StateOfMalinka() {
   if (pinSettings.length) {
     return (
       <>
-        <h3>Состояние</h3>
         {pinSettings.map(el =>
           (<StateCard key={el._id} state={el.state} id={el._id} name={el.name} pinNum={el.pinNum} pinType={el.pinType} />)
         )}

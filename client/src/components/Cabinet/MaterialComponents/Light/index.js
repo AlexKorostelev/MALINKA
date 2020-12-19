@@ -20,7 +20,6 @@ export default function SwitchesGroup() {
 
   return (
     <>
-      <h3>Управление</h3>
       <FormControl component="fieldset">
         <h5>Прихожая Свет</h5>
         <FormGroup>
