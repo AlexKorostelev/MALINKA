@@ -71,10 +71,8 @@ bot.help(async (ctx) => {
   ctx.reply(`I am ready to give you a hand, ${ctx.message.from.username}`);
 });
 bot.command('myHomes', async (ctx) => {
-  let userHomes = await User.findOne({
-    tgLogin: ctx.update.message.from.username,
-  }).populate('homes');
-  let userHomesToReturn = userHomes.homes.map((eachHome) => `${eachHome.name}`);
+  let userHomes = await User.find({}).populate('homes');
+  let userHomesToReturn = userHomes[0].homes.map((eachHome) => `${eachHome.name}`);
   ctx.reply(`Here is the list of your homes:\n${userHomesToReturn.join('\n')}`);
 });
 bot.on('message', async (ctx) => {
