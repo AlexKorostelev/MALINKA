@@ -1,6 +1,9 @@
 h1, h3 {
   text-align: center;
-  padding-top: 10px;
-  color: snow;
+  color: white;
   margin: 0;
+}
+
+#root {
+  color: rgb(220,216,181) ;
 }

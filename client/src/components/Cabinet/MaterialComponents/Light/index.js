@@ -21,7 +21,7 @@ export default function SwitchesGroup() {
   return (
     <>
       <FormControl component="fieldset">
-        <h5>Прихожая Свет</h5>
+        <h3>Прихожая Свет</h3>
         <FormGroup>
           <FormControlLabel
             control={<Switch checked={state.first} onChange={handleChange} name="first" />}
@@ -31,7 +31,6 @@ export default function SwitchesGroup() {
             control={<Switch checked={state.second} onChange={handleChange} name="second" />}
             label="Общий свет"
           />
-          <NonLinearSlider />
           <FormControlLabel
             control={<Switch checked={state.third} onChange={handleChange} name="third" />}
             label="Таршер"

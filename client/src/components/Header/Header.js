@@ -32,9 +32,11 @@ const useStyles = makeStyles(() => ({
   appbarWrapper: {
     width: '80%',
     margin: '0 auto',
+    display: 'flex',
+    justifyContent: 'space-between',
   },
   appbarTitle: {
-    flexGrow: '1',
+    // flexGrow: '1',
   },
   icon: {
     color: '#fff',
