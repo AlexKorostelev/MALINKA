@@ -53,21 +53,57 @@ const useStyles = makeStyles(() => ({
 
 export default function Headers() {
   const classes = useStyles();
-  const [checked, setChecked] = useState(false);
+  const [checked, setChecked] = useState(false)
+
   useEffect(() => {
     setChecked(true);
-  }, []);
+  }, [])
+
+  const [open, setOpen] = React.useState(false)
+
+  const handleClickOpen = () => {
+    setOpen(true)
+  }
+
+  const handleClose = () => {
+    setOpen(false)
+  }
+
+
   return (
     <div className={classes.root} id="header">
       <AppBar className={classes.appbar} elevation={0}>
         <Toolbar className={classes.appbarWrapper}>
-          <h1 className={classes.appbarTitle}>
-            MALINKA
-            <span className={classes.colorText}><i>plus</i></span>
-          </h1>
-          <IconButton>
+          <h1 className={classes.appbarTitle}>MALINKA<span className={classes.colorText}><i>plus</i></span></h1>
+          <IconButton onClick={handleClickOpen}>
             <AccountCircleIcon className={classes.icon} />
           </IconButton>
+          <Dialog open={open} onClose={handleClose} aria-labelledby="Authorization" >
+            <DialogTitle id="Authorization">Authorization</DialogTitle>
+            <DialogContent>
+              <DialogContentText>Пройдите авторизацию</DialogContentText>
+              <TextField
+                autoFocus
+                margin="dense"
+                id="name"
+                label="Email Address"
+                type="email"
+                fullWidth
+              />
+              <TextField
+                autoFocus
+                margin="dense"
+                id="pass"
+                label="Password"
+                type="password"
+                fullWidth
+              />
+            </DialogContent>
+            <DialogActions>
+              <Button onClick={handleClose} color="primary">Отменить</Button>
+              <Button onClick={handleClose} color="primary">Войти</Button>
+            </DialogActions>
+          </Dialog>
         </Toolbar>
       </AppBar>
 
