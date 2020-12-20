@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import {makeStyles} from '@material-ui/core/styles';
-import { AppBar, Collapse, IconButton, Toolbar } from '@material-ui/core';
+import { AppBar, Button, Collapse, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle, IconButton, TextField, Toolbar } from '@material-ui/core';
 import AccountCircleIcon from '@material-ui/icons/AccountCircle';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import { Link as Scroll } from 'react-scroll'
@@ -47,17 +47,56 @@ const useStyles = makeStyles((theme) => ({
 export default function Headers() {
   const classes = useStyles();
   const [checked, setChecked] = useState(false)
+
   useEffect(() => {
     setChecked(true);
   },[])
+
+  const [open, setOpen] = React.useState(false)
+
+  const handleClickOpen = () => {
+    setOpen(true)
+  }
+
+  const handleClose = () => {
+    setOpen(false)
+  }
+
+
   return (
     <div className={classes.root} id="header">
       <AppBar className={classes.appbar} elevation={0}>
         <Toolbar className={classes.appbarWrapper}>
           <h1 className={classes.appbarTitle}>MALINKA<span className={classes.colorText}><i>plus</i></span></h1>
-          <IconButton>
+          <IconButton onClick={handleClickOpen}>
             <AccountCircleIcon className={classes.icon}/>
           </IconButton>
+          <Dialog open={open} onClose={handleClose} aria-labelledby="Authorization" >
+                <DialogTitle id="Authorization">Authorization</DialogTitle>
+                <DialogContent>
+                  <DialogContentText>Пройдите авторизацию</DialogContentText>
+                  <TextField 
+                      autoFocus
+                      margin="dense"
+                      id="name"
+                      label="Email Address"
+                      type="email"
+                      fullWidth
+                  />
+                   <TextField 
+                      autoFocus
+                      margin="dense"
+                      id="pass"
+                      label="Password"
+                      type="password"
+                      fullWidth
+                  />
+                </DialogContent>
+                <DialogActions>
+                  <Button onClick={handleClose} color="primary">Отменить</Button>
+                  <Button onClick={handleClose} color="primary">Войти</Button>
+                </DialogActions>
+              </Dialog>
         </Toolbar>
       </AppBar>
 
