@@ -1,11 +1,10 @@
 import React from 'react';
-import './style.css'
+import './style.css';
 import FormControl from '@material-ui/core/FormControl';
 import FormGroup from '@material-ui/core/FormGroup';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import FormHelperText from '@material-ui/core/FormHelperText';
 import Switch from '@material-ui/core/Switch';
-import NonLinearSlider from '../comp/index'
 
 export default function SwitchesGroup() {
   const [state, setState] = React.useState({
@@ -21,7 +20,7 @@ export default function SwitchesGroup() {
   return (
     <>
       <FormControl component="fieldset">
-        <h5>Прихожая Свет</h5>
+        <h3>Прихожая Свет</h3>
         <FormGroup>
           <FormControlLabel
             control={<Switch checked={state.first} onChange={handleChange} name="first" />}
@@ -31,7 +30,6 @@ export default function SwitchesGroup() {
             control={<Switch checked={state.second} onChange={handleChange} name="second" />}
             label="Общий свет"
           />
-          <NonLinearSlider />
           <FormControlLabel
             control={<Switch checked={state.third} onChange={handleChange} name="third" />}
             label="Таршер"
