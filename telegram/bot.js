@@ -4,8 +4,8 @@ const fetch = require('node-fetch');
 const request = require('request');
 const fs = require('fs');
 const mongoose = require('mongoose');
-const User = require('./user');
-const Home = require('./home');
+const User = require('./models/user');
+const Home = require('./models/home');
 const telegramBotToken = process.env.BOT_TOKEN;
 const folderId = process.env.FOLDER_ID;
 const yandexToken = process.env.YANDEX_TOKEN;
@@ -19,8 +19,9 @@ connection.once('open', async () => {
 });
 
 const checkIfRegistered = async (ctx, next) => {
-  const userFound = await User.findOne({ tgLogin: ctx.message.from.username });
-  if (userFound) {
+  const userFound = await User.find({});
+  
+  if (userFound[0].tgLogin.includes(ctx.message.from.username)) {
     await next();
   } else {
     ctx.reply(
@@ -29,16 +30,36 @@ const checkIfRegistered = async (ctx, next) => {
   }
 };
 
-const giveNameToFile = (userIdTg)=>{
-  let localDate = (new Date(Date.now())).toISOString().toString().slice(0,-5)
+const giveNameToFile = (userIdTg) => {
+  let localDate = new Date(Date.now()).toISOString().toString().slice(0, -5);
 
   const dir = `./allTheSounds/${userIdTg}`;
 
-  if (!fs.existsSync(dir)){
+  if (!fs.existsSync(dir)) {
     fs.mkdirSync(dir);
   }
-  return `./allTheSounds/${userIdTg}/${userIdTg}_${localDate}.ogg`
-}
+  return `./allTheSounds/${userIdTg}/${userIdTg}_${localDate}.ogg`;
+};
+
+bot.command('send', async (ctx) => {
+  const chat_id = ctx.message.chat.id;
+  const someText = 'Hello from fetch';
+  const sendMessage = await fetch(
+    `https://api.telegram.org/bot${telegramBotToken}/sendMessage?chat_id=${chat_id}&text=${someText}`,
+    {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      data: JSON.stringify({
+        chat_id: chat_id,
+        text: someText,
+      }),
+      // })
+      // ctx.telegram.sendMessage(ctx.message.chat.id, someText);
+    }
+  );
+});
 
 bot.use(checkIfRegistered);
 
@@ -54,7 +75,6 @@ bot.command('myHomes', async (ctx) => {
     tgLogin: ctx.update.message.from.username,
   }).populate('homes');
   let userHomesToReturn = userHomes.homes.map((eachHome) => `${eachHome.name}`);
-  console.log(ctx.update.message);
   ctx.reply(`Here is the list of your homes:\n${userHomesToReturn.join('\n')}`);
 });
 bot.on('message', async (ctx) => {
@@ -68,7 +88,7 @@ bot.on('message', async (ctx) => {
       `https://api.telegram.org/bot${telegramBotToken}/getFile?file_id=${fileID}`
     );
     const rez = await response.json();
-    let nameOfTheFile = giveNameToFile(ctx.update.message.from.id)
+    let nameOfTheFile = giveNameToFile(ctx.update.message.from.id);
 
     const file = fs.createWriteStream(nameOfTheFile);
 
