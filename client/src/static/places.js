@@ -1,7 +1,6 @@
 import RaspberryImg from '../assets/raspberryPI.webp';
 import HouseImg from '../assets/house.jpg';
 
-
 const places = [
   {
     title: 'Raspberry-PI',
@@ -17,4 +16,4 @@ const places = [
   },
 ];
 
-export default places
+export default places;
