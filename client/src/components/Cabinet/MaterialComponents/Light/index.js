@@ -1,11 +1,11 @@
 import React from 'react';
-import './style.css'
+import './style.css';
 import FormControl from '@material-ui/core/FormControl';
 import FormGroup from '@material-ui/core/FormGroup';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import FormHelperText from '@material-ui/core/FormHelperText';
 import Switch from '@material-ui/core/Switch';
-import NonLinearSlider from '../comp/index'
+import NonLinearSlider from '../comp/index';
 
 export default function SwitchesGroup() {
   const [state, setState] = React.useState({
