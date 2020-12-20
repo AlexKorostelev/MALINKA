@@ -1,10 +1,11 @@
+import React from 'react';
 import {
   BrowserRouter as Router,
   Switch,
   Route,
-} from "react-router-dom";
-import Main from './components/Main/Main'
-import Cabinet from './components/Cabinet/Cabinet'
+} from 'react-router-dom';
+import Main from './components/Main/Main';
+import Cabinet from './components/Cabinet/Cabinet';
 
 function App() {
   return (
@@ -12,11 +13,11 @@ function App() {
 
       <Switch>
 
-        <Route exact path='/'>
+        <Route exact path="/">
           <Main />
         </Route>
 
-        <Route path='/cabinet'>
+        <Route path="/cabinet">
           <Cabinet />
         </Route>
 
@@ -25,4 +26,4 @@ function App() {
   );
 }
 
-export default App
+export default App;

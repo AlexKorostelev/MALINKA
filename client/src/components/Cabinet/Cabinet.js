@@ -1,13 +1,13 @@
 import React from 'react';
-import './style.css'
-import BackgroundImg from '../../assets/bg.jpg'
+import './style.css';
 import { makeStyles } from '@material-ui/core/styles';
 import Grid from '@material-ui/core/Grid';
-import SwitchesGroup from './MaterialComponents/Light/index'
-import StateOfMalinka from '../StateOfMalinka/StateOfMalinka'
 import { CssBaseline } from '@material-ui/core';
+import BackgroundImg from '../../assets/bg.jpg';
+import SwitchesGroup from './MaterialComponents/Light/index';
+import StateOfMalinka from '../StateOfMalinka/StateOfMalinka';
 
-const useStyles = makeStyles((theme) => ({
+const useStyles = makeStyles(() => ({
   root: {
     flexGrow: 1,
     minHeight: '100vh',
@@ -22,7 +22,7 @@ const useStyles = makeStyles((theme) => ({
     maxWidth: 545,
     background: 'rgba(0,0,0,0.5)',
     margin: '10px',
-  }
+  },
 }));
 
 export default function Cabinet() {
@@ -32,7 +32,7 @@ export default function Cabinet() {
       <CssBaseline />
       <h1>Control Panel</h1>
       <Grid container spacing={1}>
-        
+
         <Grid item xs={6}>
           <div className={classes.div}>
             <h3>Управление</h3>
