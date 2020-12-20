@@ -1,11 +1,28 @@
 import React from 'react';
-import Microphone from './components/Microphone/Microphone';
+import {
+  BrowserRouter as Router,
+  Switch,
+  Route,
+} from 'react-router-dom';
+import Main from './components/Main/Main';
+import Cabinet from './components/Cabinet/Cabinet';
 
 function App() {
   return (
-    <>
-      <Microphone />
-    </>
+    <Router>
+
+      <Switch>
+
+        <Route exact path="/">
+          <Main />
+        </Route>
+
+        <Route path="/cabinet">
+          <Cabinet />
+        </Route>
+
+      </Switch>
+    </Router>
   );
 }
 
