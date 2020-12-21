@@ -5,7 +5,6 @@ import FormGroup from '@material-ui/core/FormGroup';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import FormHelperText from '@material-ui/core/FormHelperText';
 import Switch from '@material-ui/core/Switch';
-import NonLinearSlider from '../comp/index';
 
 export default function SwitchesGroup() {
   const [state, setState] = React.useState({
