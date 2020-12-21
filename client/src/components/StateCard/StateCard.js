@@ -14,6 +14,7 @@ const useStyles = makeStyles({
   },
   pos: {
     marginBottom: 12,
+    color: 'rgb(168,164,136)',
   },
 });
 
@@ -27,7 +28,7 @@ export default function StateCard({ state, name }) {
         </Typography>
 
         <Typography className={classes.pos} color="textSecondary">
-          {state ? 'true' : 'false'}
+          {state ? 'Включено' : 'Выключено'}
         </Typography>
       </CardContent>
     </Card>

@@ -1,9 +1,9 @@
+/* eslint-disable no-console */
 import React from 'react';
 import './style.css';
 import FormControl from '@material-ui/core/FormControl';
 import FormGroup from '@material-ui/core/FormGroup';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
-import FormHelperText from '@material-ui/core/FormHelperText';
 import Switch from '@material-ui/core/Switch';
 import { makeStyles } from '@material-ui/core/styles';
 
@@ -33,10 +33,55 @@ export default function SwitchesGroup() {
     setState({ ...state, [event.target.name]: event.target.checked });
   };
 
+  const clickHandlerLight = (event) => {
+    const requestOptionsOn = {
+      method: 'PUT',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ command: 'включить свет' }),
+    };
+    // eslint-disable-next-line no-unused-vars
+    const requestOptionsOff = {
+      method: 'PUT',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ command: 'выключить свет' }),
+    };
+    if (event.target.checked) {
+      fetch('http://192.168.1.53:3333/', requestOptionsOn)
+        .then((response) => response.json())
+        .then((data) => console.log(data));
+    } else {
+      fetch('http://192.168.1.53:3333/', requestOptionsOff)
+        .then((response) => response.json())
+        .then((data) => console.log(data));
+    }
+  };
+
+  const clickHandlerSound = (event) => {
+    const requestOptionsOn = {
+      method: 'PUT',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ command: 'включить музыку' }),
+    };
+    // eslint-disable-next-line no-unused-vars
+    const requestOptionsOff = {
+      method: 'PUT',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ command: 'выключить музыку' }),
+    };
+    if (event.target.checked) {
+      fetch('http://192.168.1.53:3333/', requestOptionsOn)
+        .then((response) => response.json())
+        .then((data) => console.log(data));
+    } else {
+      fetch('http://192.168.1.53:3333/', requestOptionsOff)
+        .then((response) => response.json())
+        .then((data) => console.log(data));
+    }
+  };
   return (
     <>
       <FormControl component="fieldset">
-        <h3>Прихожая Свет</h3>
+        <h3>Прихожая</h3>
         <FormGroup>
           <FormControlLabel
             control={(
@@ -52,6 +97,7 @@ export default function SwitchesGroup() {
             label="Люстра"
             labelPlacement="start"
             className={classes.toggle}
+            onClick={clickHandlerLight}
           />
           <FormControlLabel
             control={(
@@ -64,10 +110,10 @@ export default function SwitchesGroup() {
                 }}
               />
             )}
-            label="Общий свет"
+            label="Музыка"
             labelPlacement="start"
             className={classes.toggle}
-
+            onClick={clickHandlerSound}
           />
           <FormControlLabel
             control={(
@@ -83,9 +129,9 @@ export default function SwitchesGroup() {
             label="Таршер"
             labelPlacement="start"
             className={classes.toggle}
+            onClick={clickHandlerSound}
           />
         </FormGroup>
-        <FormHelperText>220w</FormHelperText>
       </FormControl>
     </>
   );

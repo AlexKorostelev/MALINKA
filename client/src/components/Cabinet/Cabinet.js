@@ -28,6 +28,7 @@ const useStyles = makeStyles(() => ({
     margin: '0 10px',
     padding: '10px 20px',
     borderRadius: '4px',
+    minWidth: '350px',
   },
   contentContainer: {
     display: 'flex',
