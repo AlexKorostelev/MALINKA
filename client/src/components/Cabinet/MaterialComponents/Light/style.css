@@ -1,3 +1,9 @@
-h3, h5 {
-  color: rgb(33,37,41);
+h5 {
+  text-align: center;
+  color: white;
+  margin: 0;
+}
+
+h3 {
+  color:rgb(238,53,97);
 }

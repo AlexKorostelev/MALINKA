@@ -5,20 +5,28 @@ const sha256 = require('sha256')
 const router = Router();
 
 router.post('/login', async (req, res) => {
-	const {name, password, email}  = req.body;
+  const { password, email}  = req.body;
+  console.log(req.body);
+try{
+
 
 	const candidate = await User.findOne({email})
-
 	if(sha256(password) === candidate.password) {
 		req.session.user = {email};
 		req.session.isAuthenticated = true;
-		req.session.save((err) => {
-			if(err) {
-				console.log(err);
-			}
-		})
-		return res.sendStatus(200)
-	}
+    req.session.save(
+      // (err) => {
+      //   if(err) {
+      //     console.log(err);
+      //   }
+      // }
+    )
+		return res.json({name: candidate.name, id: candidate._id})
+  } }
+  catch{
+
+    res.sendStatus(401);
+  }
 })
 
 router.post('/register', async (req, res) => {
