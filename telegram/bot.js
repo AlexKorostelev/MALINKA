@@ -18,23 +18,6 @@ connection.once('open', async () => {
   console.log('MongoDB database connection established successfully');
 });
 
-const sendAlertToTG = async (chatID, messageText) => {
-  //chatID should be declared in Raspberry app.js
-  await fetch(
-    `https://api.telegram.org/bot${telegramBotToken}/sendMessage?chat_id=${chatID}&text=${messageText}`,
-    {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      data: JSON.stringify({
-        chat_id: chatID,
-        text: messageText,
-      }),
-    }
-  );
-};
-
 const checkIfRegistered = async (ctx, next) => {
   const userFound = await User.find({});
   try {
@@ -128,7 +111,7 @@ bot.command('myHomes', async (ctx) => {
       }),
     });
   })
-  
+
   bot.action('BACK',(ctx)=>{
     ctx.deleteMessage()
     ctx.reply('Please, find below the list of homes available to you:\n',menu(userHomesToReturn))
@@ -136,6 +119,7 @@ bot.command('myHomes', async (ctx) => {
 });
 
 bot.on('message', async (ctx) => {
+  
   if (!ctx.update.message.voice) {
     ctx.reply('Could you please send Audio message instead');
     return;
@@ -200,3 +184,6 @@ bot.on('message', async (ctx) => {
 });
 
 bot.launch();
+
+
+
