@@ -17,7 +17,9 @@ const useStyles = makeStyles({
   },
 });
 
-export default function StateCard({ state, name }) {
+export default function StateCard({
+  state, name,
+}) {
   const classes = useStyles();
   return (
     <Card className={classes.root}>
