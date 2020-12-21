@@ -18,6 +18,9 @@ const PinSettingsSchema = mongoose.Schema({
     type: String,
     required: true,
   },
+  availableCommands: {
+    type: Array
+  },
 })
 
 const PinSettings = mongoose.model('PinSetting', PinSettingsSchema)

@@ -78,10 +78,11 @@ const menu = (listOfHomes) => {
 
 bot.command('myHomes', async (ctx) => {
   let userHomes = await User.find({}).populate('homes');
-  console.log('userHomes',userHomes[0].homes)
+  console.log(userHomes[0].homes)
   let userHomesToReturn = userHomes[0].homes.map(
     (eachHome) => `${eachHome.name}`
   );
+ 
   ctx.reply(`Please, find below the list of homes available to you:\n`, menu(userHomesToReturn))
 
   bot.action(userHomesToReturn[0],(ctx)=>{

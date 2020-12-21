@@ -4,7 +4,6 @@ const mongoose = require('mongoose');
 const User = require('./user')
 const Home = require('./home')
 const PinSettings = require('./pinSettings')
-const UserTg = require('./userTg')
 const sha256 = require('sha256')
 
 // lorem settings
@@ -32,49 +31,53 @@ mongoose.connect(process.env.MONGOOSE_DB, {
 const testSetting = new PinSettings({
   name: lorem.generateWords(1),
   pinNum: Math.floor(Math.random() * 40),
-  pinType: 'input'
+  pinType: 'input',
+  availableCommands: ['Включить свет на кухне', 'Выключить свет на кухне']
 })
 
 const testSetting1 = new PinSettings({
   name: lorem.generateWords(1),
   pinNum: Math.floor(Math.random() * 40),
-  pinType: 'input'
+  pinType: 'input',
+  availableCommands: ['Включить свет в гараже', 'Выключить свет в гараже']
 })
 
 const testSetting2 = new PinSettings({
   name: lorem.generateWords(1),
   pinNum: Math.floor(Math.random() * 40),
-  pinType: 'input'
+  pinType: 'input',
+  availableCommands: ['Включить свет в подвале', 'Выключить свет в подвале']
 })
 
 async function seedHome() {
-
+  const dbArrPinSettings = await PinSettings.find()
+  const ArIdrPinSettings = dbArrPinSettings.map(el => el._id)
   const home = new Home({
     name: lorem.generateWords(1),
     location: lorem.generateWords(2) + Math.floor(Math.random() * 10),
+    pinSettingsId:[ArIdrPinSettings[0],ArIdrPinSettings[2]]
   })
 
   const home1 = new Home({
     name: lorem.generateWords(1),
     location: lorem.generateWords(2) + Math.floor(Math.random() * 10),
+    pinSettingsId:[ArIdrPinSettings[0], ArIdrPinSettings[1]]
+
   })
 
   await Home.insertMany([home, home1]);
-  await mongoose.disconnect();
   console.log('Homes added');
 }
 
 async function seed(model, arr) {
   await model.insertMany(arr);
-  await mongoose.disconnect();
-  console.log('DB disconnected');
+  console.log('Pins added');
 }
 
 async function seedUser() {
   const dbArrHomes = await Home.find()
-  console.log(dbArrHomes);
   const ArrIdHomes = dbArrHomes.map(el => el._id)
-  console.log(ArrIdHomes);
+
 
   const testUser = new User({
     name: lorem.generateWords(1),
@@ -86,10 +89,13 @@ async function seedUser() {
 
   await testUser.save()
   await mongoose.disconnect();
+  console.log('Users added');
   console.log('DB disconnected');
 }
 
-// seedHome()
-seedUser()
-
-// seed(PinSettings, [testSetting, testSetting1, testSetting2])
+async function seedAll(){
+  await seed(PinSettings, [testSetting, testSetting1, testSetting2])
+  await seedHome()
+  await seedUser()
+}
+seedAll()
