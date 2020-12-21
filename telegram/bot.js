@@ -81,22 +81,25 @@ bot.help(async (ctx) => {
   ctx.reply(`We are happy to give you a hand in navigating through the App, ${ctx.message.from.username}!\nOffical webpage: https://iot-russia.com\n\n/myHomes - to get the list of all the homes available to you`);
 });
 
+const menu = (listOfHomes) => {
+  return Telegraf.Extra
+    .markup((m) =>
+      m.inlineKeyboard([
+        [
+          m.callbackButton(listOfHomes[0], listOfHomes[0]),
+          m.callbackButton(listOfHomes[1], listOfHomes[1])
+        ]
+      ])
+    )
+};
+
 bot.command('myHomes', async (ctx) => {
   let userHomes = await User.find({}).populate('homes');
+  console.log('userHomes',userHomes[0].homes)
   let userHomesToReturn = userHomes[0].homes.map(
     (eachHome) => `${eachHome.name}`
   );
-  ctx.telegram.sendMessage(ctx.chat.id, `Please, find below the list of homes available to you:\n`, {
-    reply_markup: JSON.stringify({
-      inline_keyboard: [
-        [
-          { text: `Manage\n${userHomesToReturn[0]}`, callback_data: userHomesToReturn[0] },
-          { text: `Manage\n${userHomesToReturn[1]}`, callback_data: userHomesToReturn[1] },
-        ],
-      ],
-      selective: true
-    }),
-  });
+  ctx.reply(`Please, find below the list of homes available to you:\n`, menu(userHomesToReturn))
 
   bot.action(userHomesToReturn[0],(ctx)=>{
     ctx.deleteMessage()
@@ -104,20 +107,7 @@ bot.command('myHomes', async (ctx) => {
       reply_markup: JSON.stringify({
         inline_keyboard: [
           [
-            { text: `BACK`, callback_data: 'myHomes' },
-          ],
-        ],
-        selective: true
-      }),
-    });
-  })
-  bot.action(userHomesToReturn[1],(ctx)=>{
-    ctx.deleteMessage()
-    ctx.telegram.sendMessage(ctx.chat.id, `Please, find below the list of OPERATIONS available to you:\n"Включить свет"\n"Выключить свет"`, {
-      reply_markup: JSON.stringify({
-        inline_keyboard: [
-          [
-            { text: `BACK`, callback_data: 'myHomes' },
+            { text: `BACK`, callback_data: 'BACK' },
           ],
         ],
         selective: true
@@ -125,6 +115,24 @@ bot.command('myHomes', async (ctx) => {
     });
   })
 
+  bot.action(userHomesToReturn[1],(ctx)=>{
+    ctx.deleteMessage()
+    ctx.telegram.sendMessage(ctx.chat.id, `Please, find below the list of OPERATIONS available to you:\n"Включить свет"\n"Выключить свет"`, {
+      reply_markup: JSON.stringify({
+        inline_keyboard: [
+          [
+            { text: `BACK`, callback_data: 'BACK' },
+          ],
+        ],
+        selective: true
+      }),
+    });
+  })
+  
+  bot.action('BACK',(ctx)=>{
+    ctx.deleteMessage()
+    ctx.reply('Please, find below the list of homes available to you:\n',menu(userHomesToReturn))
+  })
 });
 
 bot.on('message', async (ctx) => {
