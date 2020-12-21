@@ -23,10 +23,7 @@ export default function StateOfMalinka() {
           <StateCard
             key={el._id}
             state={el.state}
-            id={el._id}
             name={el.name}
-            pinNum={el.pinNum}
-            pinType={el.pinType}
           />
         ))}
       </>

@@ -1,3 +1,4 @@
+/* eslint-disable react/prop-types */
 import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import Card from '@material-ui/core/Card';
@@ -16,29 +17,17 @@ const useStyles = makeStyles({
   },
 });
 
-export default function StateCard({ state, id, name, pinNum, pinType }) {
+export default function StateCard({ state, name }) {
   const classes = useStyles();
   return (
     <Card className={classes.root}>
       <CardContent>
         <Typography variant="h5" component="h2">
-          {id}
-        </Typography>
-
-        <Typography variant="h5" component="h2">
           {name}
         </Typography>
 
         <Typography className={classes.pos} color="textSecondary">
-          {state}
-        </Typography>
-
-        <Typography variant="body2" component="p">
-          {pinNum}
-        </Typography>
-
-        <Typography variant="body2" component="p">
-          {pinType}
+          {state ? 'true' : 'false'}
         </Typography>
       </CardContent>
     </Card>
