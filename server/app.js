@@ -11,6 +11,8 @@ const varMiddelware = require('./middelware/variables');
 const app = express()
 
 const indexRouter = require('./routes/index')
+const dataRouter = require('./routes/data')
+
 const url = process.env.MONGOOSE_CONNECT
 mongoose.connect(process.env.MONGOOSE_CONNECT, {
   useNewUrlParser: true,
@@ -22,9 +24,6 @@ mongoose.connect(process.env.MONGOOSE_CONNECT, {
   console.log('DB connected');
 });
 
-
-
-
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }))
 app.use(cors())
@@ -34,13 +33,12 @@ app.use(session({
   resave: false,
   saveUninitialized: false,
   store: new MongoStore({
-    mongooseConnection: mongoose.createConnection(process.env.MONGOOSE_CONNECT, {useNewUrlParser: true,  useUnifiedTopology: true,}),
+    mongooseConnection: mongoose.createConnection(process.env.MONGOOSE_CONNECT, { useNewUrlParser: true, useUnifiedTopology: true, }),
 
     // collection: 'sessions',
     // url,
   })
 }))
-
 
 app.use(userMiddeleware);
 app.use(varMiddelware);
@@ -48,7 +46,7 @@ app.use(varMiddelware);
 // routes
 app.use('/', indexRouter)
 app.use('/auth', authRoutes)
-
+app.use('/data', dataRouter)
 
 
 const PORT = process.env.PORT ?? 3002
