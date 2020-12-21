@@ -18,15 +18,45 @@ connection.once('open', async () => {
   console.log('MongoDB database connection established successfully');
 });
 
+const sendAlertToTG = async (chatID, messageText) => {
+  //chatID should be declared in Raspberry app.js
+  await fetch(
+    `https://api.telegram.org/bot${telegramBotToken}/sendMessage?chat_id=${chatID}&text=${messageText}`,
+    {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      data: JSON.stringify({
+        chat_id: chatID,
+        text: messageText,
+      }),
+    }
+  );
+};
+
 const checkIfRegistered = async (ctx, next) => {
   const userFound = await User.find({});
-  
-  if (userFound[0].tgLogin.includes(ctx.message.from.username)) {
-    await next();
-  } else {
-    ctx.reply(
-      `Dear, ${ctx.message.from.username}! You have not been registered by our managers`
-    );
+  try {
+    if(ctx.update?.callback_query?.message?.chat?.username){
+      if (userFound[0].tgLogin.includes(ctx.update.callback_query.message.chat.username)) {
+        await next();
+      } else {
+        ctx.reply(
+          `Dear!!!! ${ctx.update.callback_query.message.chat.username}! You have not been registered by our managers`
+        );
+      }
+    }else{
+      if (userFound[0].tgLogin.includes(ctx.update.message.from.username)) {
+        await next();
+      } else {
+        ctx.reply(
+          `Dear, ${ctx.update.message.from.username}! You have not been registered by our managers`
+        );
+      }
+    }
+  } catch (error) {
+    console.log('sorry guys', error);
   }
 };
 
@@ -41,40 +71,62 @@ const giveNameToFile = (userIdTg) => {
   return `./allTheSounds/${userIdTg}/${userIdTg}_${localDate}.ogg`;
 };
 
-bot.command('send', async (ctx) => {
-  const chat_id = ctx.message.chat.id;
-  const someText = 'Hello from fetch';
-  const sendMessage = await fetch(
-    `https://api.telegram.org/bot${telegramBotToken}/sendMessage?chat_id=${chat_id}&text=${someText}`,
-    {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      data: JSON.stringify({
-        chat_id: chat_id,
-        text: someText,
-      }),
-      // })
-      // ctx.telegram.sendMessage(ctx.message.chat.id, someText);
-    }
-  );
-});
-
 bot.use(checkIfRegistered);
 
 bot.start(async (ctx) => {
-  ctx.reply(`Greetings, ${ctx.message.from.username}`);
+  ctx.reply(`Greetings, ${ctx.message.from.username}!\nThe company "IoT Russia" wishes you and your loved ones the best!\n Please, use the following commands to navigate in the app\n /help - to get "About" page with all available comands\n/myHomes - to get the list of all the homes available to you`);
 });
 
 bot.help(async (ctx) => {
-  ctx.reply(`I am ready to give you a hand, ${ctx.message.from.username}`);
+  ctx.reply(`We are happy to give you a hand in navigating through the App, ${ctx.message.from.username}!\nOffical webpage: https://iot-russia.com\n\n/myHomes - to get the list of all the homes available to you`);
 });
+
 bot.command('myHomes', async (ctx) => {
   let userHomes = await User.find({}).populate('homes');
-  let userHomesToReturn = userHomes[0].homes.map((eachHome) => `${eachHome.name}`);
-  ctx.reply(`Here is the list of your homes:\n${userHomesToReturn.join('\n')}`);
+  let userHomesToReturn = userHomes[0].homes.map(
+    (eachHome) => `${eachHome.name}`
+  );
+  ctx.telegram.sendMessage(ctx.chat.id, `Please, find below the list of homes available to you:\n`, {
+    reply_markup: JSON.stringify({
+      inline_keyboard: [
+        [
+          { text: `Manage\n${userHomesToReturn[0]}`, callback_data: userHomesToReturn[0] },
+          { text: `Manage\n${userHomesToReturn[1]}`, callback_data: userHomesToReturn[1] },
+        ],
+      ],
+      selective: true
+    }),
+  });
+
+  bot.action(userHomesToReturn[0],(ctx)=>{
+    ctx.deleteMessage()
+    ctx.telegram.sendMessage(ctx.chat.id, `Please, find below the list of OPERATIONS available to you:\n"Включить свет"\n"Выключить свет"`, {
+      reply_markup: JSON.stringify({
+        inline_keyboard: [
+          [
+            { text: `BACK`, callback_data: 'myHomes' },
+          ],
+        ],
+        selective: true
+      }),
+    });
+  })
+  bot.action(userHomesToReturn[1],(ctx)=>{
+    ctx.deleteMessage()
+    ctx.telegram.sendMessage(ctx.chat.id, `Please, find below the list of OPERATIONS available to you:\n"Включить свет"\n"Выключить свет"`, {
+      reply_markup: JSON.stringify({
+        inline_keyboard: [
+          [
+            { text: `BACK`, callback_data: 'myHomes' },
+          ],
+        ],
+        selective: true
+      }),
+    });
+  })
+
 });
+
 bot.on('message', async (ctx) => {
   if (!ctx.update.message.voice) {
     ctx.reply('Could you please send Audio message instead');
@@ -102,8 +154,15 @@ bot.on('message', async (ctx) => {
         },
         body: binary,
       };
-      request(options, (error, response) => {
+      request(options, async(error, response) => {
         if (error) throw new Error(error);
+        await fetch('http://192.168.1.53:3333/', {
+            method: 'PUT',
+            headers: {
+              'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({command: JSON.parse(response.body).result}),
+          });
         console.log(
           '\x1b[1m\x1b[33m%s\x1b[0m',
           JSON.parse(response.body).result
@@ -131,4 +190,5 @@ bot.on('message', async (ctx) => {
     console.log('Unfortunately, we have got an error, milord\n', error);
   }
 });
+
 bot.launch();
