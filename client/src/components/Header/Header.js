@@ -95,7 +95,7 @@ export default function Headers() {
       .catch((err) => {
         setErrorEmail(true);
         setErrorPassword(true);
-        console.log(errorEmail, errorPassword, err);
+        console.log(err);
       });
   };
 
@@ -127,7 +127,6 @@ export default function Headers() {
               />
               <TextField
                 error={errorPassword}
-                autoFocus
                 margin="dense"
                 value={password}
                 id="pass"

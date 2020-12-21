@@ -12,18 +12,26 @@ const useStyles = makeStyles((theme) => ({
       margin: theme.spacing(2),
     },
   },
+  mainContainer: {
+    display: 'flex',
+    alignItems: 'center',
+  },
+  stateName: {
+    margin: '5px 15px 10px 0',
+    paddingTop: '1px',
+    fontWeight: '400',
+    fontSize: '1rem',
+    letterSpacing: '0.00938em',
+  },
 }));
 
 export default function StateCard2({ state, name }) {
   const classes = useStyles();
   return (
     <>
-      <div>
-        <p>
-          {name}
-        -
-         {state ? <EmojiObjectsIcon className={classes.root} style={{ color: green[500] }} /> : <EmojiObjectsIcon className={classes.root} />}
-        </p>
+      <div className={classes.mainContainer}>
+        <span className={classes.stateName}>{name}</span>
+        {state ? <EmojiObjectsIcon className={classes.root} style={{ color: green[500] }} /> : <EmojiObjectsIcon className={classes.root} />}
       </div>
     </>
   );

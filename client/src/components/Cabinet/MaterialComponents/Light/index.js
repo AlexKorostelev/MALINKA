@@ -126,7 +126,7 @@ export default function SwitchesGroup() {
                 name="third"
               />
             )}
-            label="Таршер"
+            label="Гирлянда"
             labelPlacement="start"
             className={classes.toggle}
             onClick={clickHandlerSound}
