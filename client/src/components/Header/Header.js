@@ -1,23 +1,24 @@
 /* eslint-disable react/jsx-props-no-spreading */
 import React, { useState, useEffect } from 'react';
+import { useHistory } from 'react-router-dom';
 import { makeStyles } from '@material-ui/core/styles';
 import {
+  AppBar,
+  Button,
+  Collapse,
   Dialog,
-  DialogTitle,
+  DialogActions,
   DialogContent,
   DialogContentText,
-  TextField,
-  DialogActions,
-  Button,
-  AppBar,
-  Collapse,
+  DialogTitle,
   IconButton,
+  TextField,
   Toolbar,
 } from '@material-ui/core';
-
 import AccountCircleIcon from '@material-ui/icons/AccountCircle';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import { Link as Scroll } from 'react-scroll';
+import axios from 'axios';
 
 const useStyles = makeStyles(() => ({
   root: {
@@ -62,6 +63,12 @@ const useStyles = makeStyles(() => ({
 export default function Headers() {
   const classes = useStyles();
   const [checked, setChecked] = useState(false);
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [errorEmail, setErrorEmail] = useState(false);
+  const [errorPassword, setErrorPassword] = useState(false);
+
+  const history = useHistory();
 
   useEffect(() => {
     setChecked(true);
@@ -77,6 +84,21 @@ export default function Headers() {
     setOpen(false);
   };
 
+  const handleSendUser = () => {
+    axios.post('http://localhost:3001/auth/login', { email, password })
+      .then((res) => {
+        console.log(res.data);
+        setOpen(false);
+        // store.dispatch(AC.userLogin(data));
+        history.push('/cabinet');
+      })
+      .catch((err) => {
+        setErrorEmail(true);
+        setErrorPassword(true);
+        console.log(errorEmail, errorPassword, err);
+      });
+  };
+
   return (
     <div className={classes.root} id="header">
       <AppBar className={classes.appbar} elevation={0}>
@@ -88,22 +110,28 @@ export default function Headers() {
           <IconButton onClick={handleClickOpen}>
             <AccountCircleIcon className={classes.icon} />
           </IconButton>
-          <Dialog open={open} onClose={handleClose} aria-labelledby="Authorization">
+          <Dialog open={open} onClose={handleClose} aria-labelledby="Authorization" className={classes.modal}>
             <DialogTitle id="Authorization">Authorization</DialogTitle>
             <DialogContent>
               <DialogContentText>Пройдите авторизацию</DialogContentText>
               <TextField
                 autoFocus
+                error={errorEmail}
                 margin="dense"
+                value={email}
                 id="name"
                 label="Email Address"
+                onChange={(e) => setEmail(e.target.value)}
                 type="email"
                 fullWidth
               />
               <TextField
+                error={errorPassword}
                 autoFocus
                 margin="dense"
+                value={password}
                 id="pass"
+                onChange={(e) => setPassword(e.target.value)}
                 label="Password"
                 type="password"
                 fullWidth
@@ -111,7 +139,7 @@ export default function Headers() {
             </DialogContent>
             <DialogActions>
               <Button onClick={handleClose} color="primary">Отменить</Button>
-              <Button onClick={handleClose} color="primary">Войти</Button>
+              <Button onClick={handleSendUser} color="primary">Войти</Button>
             </DialogActions>
           </Dialog>
         </Toolbar>
