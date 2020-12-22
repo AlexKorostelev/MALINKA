@@ -7,6 +7,8 @@ yarn-error.log*
 lerna-debug.log*
 # exclude everything in allTheSounds
 allTheSounds/*
+helper
+./testButtons.js
 
 # exception to the rule
 !allTheSounds/.gitkeep 
