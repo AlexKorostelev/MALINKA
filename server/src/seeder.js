@@ -1,10 +1,10 @@
 require('dotenv').config()
 const LoremIpsum = require("lorem-ipsum").LoremIpsum;
 const mongoose = require('mongoose');
-const User = require('./models/user')
-const Home = require('./models/home')
-const PinSettings = require('./models/pinSettings')
-const UserTg = require('./models/userTg')
+const User = require('../models/user')
+const Home = require('../models/home')
+const PinSettings = require('../models/pinSettings')
+const UserTg = require('../models/userTg')
 const sha256 = require('sha256')
 
 // lorem settings
