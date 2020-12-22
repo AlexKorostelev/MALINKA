@@ -133,6 +133,6 @@ app.put('/command', async (req, res) => {
 })
 
 // connect
-app.listen(/* process.env.PORT */3333, () => {
+app.listen(process.env.PORT || 3001, () => {
   console.log('\x1b[1m\x1b[32m%s\x1b[0m', 'Server is  running!');
 });
