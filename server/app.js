@@ -190,5 +190,5 @@ app.put('/command', async (req, res) => {
 });
 
 server.listen(process.env.PORT || 3001, () => {
-  console.log('server running port', process.env.PORT);
+  console.log('Server running port', process.env.PORT);
 });
