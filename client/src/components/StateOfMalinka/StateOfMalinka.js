@@ -1,7 +1,9 @@
 /* eslint-disable no-underscore-dangle */
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import StateCard from '../StateCard/StateCard';
+// import StateCard from '../StateCard/StateCard';
+import StateCard2 from '../StateCard/StateCard2';
+
 import { addPinSettings } from '../../redux/action-creators/actions';
 
 export default function StateOfMalinka() {
@@ -20,13 +22,10 @@ export default function StateOfMalinka() {
     return (
       <>
         {pinSettings.map((el) => (
-          <StateCard
+          <StateCard2
             key={el._id}
             state={el.state}
-            id={el._id}
             name={el.name}
-            pinNum={el.pinNum}
-            pinType={el.pinType}
           />
         ))}
       </>

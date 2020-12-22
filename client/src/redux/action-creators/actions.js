@@ -1,3 +1,4 @@
+/* eslint-disable import/prefer-default-export */
 import * as TYPES from '../action-types/types';
 
 function addPinSettings(arr) {
@@ -9,4 +10,4 @@ function addPinSettings(arr) {
 
 export {
   addPinSettings,
-}
+};

@@ -5,10 +5,11 @@ import { CssBaseline } from '@material-ui/core';
 import BackgroundImg from '../../assets/bg.jpg';
 import SwitchesGroup from './MaterialComponents/Light/index';
 import StateOfMalinka from '../StateOfMalinka/StateOfMalinka';
+import CabinetHeader from './MaterialComponents/CabinetHeader/CabinetHeader';
 
 const useStyles = makeStyles(() => ({
   root: {
-    paddingTop: '15px',
+    paddingTop: '100px',
     gridGap: '20px',
     width: '100%',
     minHeight: '100vh',
@@ -28,6 +29,7 @@ const useStyles = makeStyles(() => ({
     margin: '0 10px',
     padding: '10px 20px',
     borderRadius: '4px',
+    minWidth: '350px',
   },
   contentContainer: {
     display: 'flex',
@@ -37,21 +39,25 @@ const useStyles = makeStyles(() => ({
 export default function Cabinet() {
   const classes = useStyles();
   return (
-    <div id="root" className={classes.root}>
-      <CssBaseline />
-      <h1>Control Panel</h1>
-      <div className={classes.contentContainer}>
-        <div className={classes.div}>
-          <h2>Управление</h2>
-          <SwitchesGroup />
+    <>
+      <CabinetHeader />
+      <div id="root" className={classes.root}>
+        <CssBaseline />
+        <h1>Control Panel</h1>
+        <div className={classes.contentContainer}>
+          <div className={classes.div}>
+            <h2>Управление</h2>
+            <SwitchesGroup />
+          </div>
+
+          <div className={classes.div}>
+            <h2>Состояние</h2>
+            <h3>Прихожая</h3>
+            <StateOfMalinka />
+          </div>
         </div>
 
-        <div className={classes.div}>
-          <h2>Состояние</h2>
-          <StateOfMalinka />
-        </div>
       </div>
-
-    </div>
+    </>
   );
 }
