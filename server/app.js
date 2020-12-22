@@ -10,8 +10,14 @@ const cors = require('cors');
 const authRoutes = require('./routes/auth');
 const userMiddeleware = require('./middelware/user');
 const varMiddelware = require('./middelware/variables');
+
 const PinSetting = require('./models/pinSettings');
 // const sendAlertToTG = require('./src/bot');
+
+//const Gpio = require('onoff').Gpio;
+const Omx = require('node-omxplayer');
+const sendAlertToTG = require('./src/bot');
+
 
 const app = express();
 const server = require('http').Server(app);
@@ -29,10 +35,12 @@ const io = require('socket.io')(server);
 // const gpioLeds = new Gpio(15, 'out');
 // const gpioDiscoBall = new Gpio(18, 'out');
 
+
 // const player = Omx(); // Создаем объект player
 
 const indexRouter = require('./routes/index');
 const dataRouter = require('./routes/data');
+
 // const { debuglog } = require('util');
 // const commandRouter = require('./routes/command');
 
@@ -58,9 +66,11 @@ const pingSettings = async () => {
 
 pingSettings();
 
+
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(cors());
+
 
 app.use(
   session({
@@ -75,6 +85,7 @@ app.use(
     }),
   }),
 );
+
 
 app.use(userMiddeleware);
 app.use(varMiddelware);
@@ -115,6 +126,7 @@ app.use('/data', dataRouter);
 // let inputBn2 = Boolean(gpioBn2.readSync()); // кнопка 2 - гирлянда ВКЛ
 // let inputBn3 = Boolean(gpioBn3.readSync()); // кнопка 3 - дискошар ВКЛ
 // let inputBn4 = Boolean(gpioBn4.readSync()); // кнопка 2 - музыка ВКЛ
+
 // let inputDoor = Boolean(gpioSensDoor.readSync()); // датчик открытия двери
 // console.log(inputDoor);
 // gpioBn1.watch(() => {
@@ -140,9 +152,11 @@ app.use('/data', dataRouter);
 //   sendAlertToTG(process.env.CHAT_ID, msg);
 // });
 
+
 app.put('/command', async (req, res) => {
   const { command } = req.body;
   console.log('\x1b[1m\x1b[33m%s\x1b[0m', command);
+
 
   // command = command.toLowerCase();
   // switch (command) {
@@ -176,13 +190,4 @@ app.put('/command', async (req, res) => {
   // }
 });
 
-
-// connect
-server.listen(process.env.PORT, () => {
-  console.log(
-    '\x1b[1m\x1b[32m%s\x1b[0m',
-    'Server is running!',
-    process.env.PORT,
-  );
-});
 

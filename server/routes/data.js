@@ -1,7 +1,8 @@
 const express = require('express');
 const router = express.Router();
-const mydata = require('../app')
-const PinSettings = require('../models/pinSettings')
+
+const PinSettings = require('../models/pinSetting')
+
 
 // router.get('/', async (req, res) => {
 //   // const pinSettings = await PinSettings.find({}).populate()

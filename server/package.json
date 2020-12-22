@@ -5,7 +5,7 @@
   "main": "server.js",
   "scripts": {
     "start": "node app.js",
-    "dev": "nodemon run app.js"
+    "dev": "concurrently --kill-others \"nodemon app.js\" \"nodemon ../telegram/bot.js\""
   },
   "keywords": [],
   "author": "",
@@ -28,6 +28,7 @@
     "socket.io": "^3.0.4"
   },
   "devDependencies": {
+    "concurrently": "^5.3.0",
     "eslint": "^7.16.0",
     "eslint-config-airbnb-base": "^14.2.1",
     "eslint-plugin-import": "^2.22.1"
