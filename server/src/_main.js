@@ -1,16 +1,6 @@
-const express = require('express');
-require('dotenv').config();
-const fetch = require('node-fetch');
 const Gpio = require('onoff').Gpio; // Gpio class
-// const { Text2Sound, Sound2Text } = require('./api');
 const Omx = require('node-omxplayer');
-const cors = require('cors');
-const sendAlertToTG = require('./bot');
-
-const app = express();
-
-app.use(cors());
-app.use(express.json());
+const sendAlertToTG = require('./server/src/bot');
 
 let player = Omx(); // Создаем объект player
 
@@ -19,7 +9,7 @@ const gpioBn1 = new Gpio(2, 'in', 'rising', { debounceTimeout: 300 });
 const gpioBn2 = new Gpio(3, 'in', 'rising', { debounceTimeout: 300 });
 const gpioBn3 = new Gpio(4, 'in', 'rising', { debounceTimeout: 300 });
 const gpioBn4 = new Gpio(0, 'in', 'rising', { debounceTimeout: 300 });
-const gpioSensDoor = new Gpio(5, 'in', 'both', { debounceTimeout: 1000 });
+const gpioSensDoor = new Gpio(5, 'in', 'both', { debounceTimeout: 500 });
 
 // Выходнаые сигналы
 const gpioLamp = new Gpio(14, 'out');
@@ -54,45 +44,10 @@ gpioSensDoor.watch(async function (err, value) {
   const msg = inputDoor ? 'Open' : 'Close';
   // console.log(msg);
   sendAlertToTG(process.env.CHAT_ID, msg);
-  // gpioLamp.writeSync(value);
-
-  /* const sendMessage = await fetch(
-    `https://api.telegram.org/bot${process.env.BOT_TOKEN}/sendMessage?chat_id=${process.env.CHAT_ID}&text=hello`,
-    {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      data: JSON.stringify({
-        chat_id: process.env.CHAT_ID,
-        text: 'hello',
-      }),
-      // })
-      // ctx.telegram.sendMessage(ctx.message.chat.id, someText);
-    } 
-  ); */
-
-
-
 });
 
-// function to run when user closes using ctrl+c
-/* process.on('SIGINT', () => {
-  gpioBn1.unexport();
-  gpioBn2.unexport();
-  gpioBn3.unexport();
-  gpioBn4.unexport();
-  gpioSensDoor.unexport();
-  gpioLamp.unexport();
-  gpioLeds.unexport();
-  gpioDiscoBall.unexport();
-}); */
 
-app.put('/', async (req, res) => {
-
-  let { command } = req.body;
-  console.log('\x1b[1m\x1b[33m%s\x1b[0m', command);
-
+function doCommand(command) {
   command = command.toLowerCase();
   switch (command) {
     case 'включить свет':
@@ -123,15 +78,6 @@ app.put('/', async (req, res) => {
       res.sendStatus(200);
       break;
   }
-})
+}
 
-app.put('/volume', (req, res) => {
-  // const text = Sound2Text('zavtra.ogg');
-  Text2Sound('Денег нет, но вы держитесь. Всего Вам доброго и хорошего.', 'alena');
-})
-
-app.listen(3333, () => {
-  console.log('\x1b[1m\x1b[32m%s\x1b[0m', 'Server is running!');
-});
-
-// omxplayer data/output.ogg -o local --no-osd -
+module.exports = doCommand;
