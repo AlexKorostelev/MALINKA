@@ -83,20 +83,7 @@ const menu = (listOfHomes) => {
     ])
   );
 };
-bot.command('give', async (ctx) => {
-  await User.findOne({ })
-    .populate({
-      path: 'homes',
-      model: 'Home',
-      populate: {
-        path: 'pinSettingsId',
-        model: 'PinSetting',
-      },
-    })
-    .exec(function (err, user) {
-      console.log('Here is the populated user: ', user.homes[0].pinSettingsId[0].availableCommands);
-    });
-});
+
 bot.command('myHomes', async (ctx) => {
   let userHomes = await User.find({}).populate('homes');
   console.log(userHomes[0].homes);
@@ -104,16 +91,28 @@ bot.command('myHomes', async (ctx) => {
     (eachHome) => `${eachHome.name}`
   );
 
+  const availableComsToReturn = await User.findOne({ })
+  .populate({
+    path: 'homes',
+    model: 'Home',
+    populate: {
+      path: 'pinSettingsId',
+      model: 'PinSetting',
+    },
+  })
+  let allTheComsAvailable1 = availableComsToReturn.homes[0].pinSettingsId.map((eachPin)=>{return eachPin.availableCommands})
+  let allTheComsAvailable2 = availableComsToReturn.homes[1].pinSettingsId.map((eachPin)=>{return eachPin.availableCommands})
+
   ctx.reply(
     `Please, find below the list of homes available to you:\n`,
     menu(userHomesToReturn)
   );
 
-  bot.action(userHomesToReturn[0], (ctx) => {
+  bot.action(userHomesToReturn[0], async(ctx) => {
     ctx.deleteMessage();
     ctx.telegram.sendMessage(
       ctx.chat.id,
-      `Please, find below the list of OPERATIONS available to you:\n"Включить свет"\n"Выключить свет"`,
+      `Please, find below the list of OPERATIONS available to you:\n${allTheComsAvailable1.flat().join('\n')}`,
       {
         reply_markup: JSON.stringify({
           inline_keyboard: [[{ text: `BACK`, callback_data: 'BACK' }]],
@@ -127,7 +126,7 @@ bot.command('myHomes', async (ctx) => {
     ctx.deleteMessage();
     ctx.telegram.sendMessage(
       ctx.chat.id,
-      `Please, find below the list of OPERATIONS available to you:\n"Включить свет"\n"Выключить свет"`,
+      `Please, find below the list of OPERATIONS available to you:\n${allTheComsAvailable2.flat().join('\n')}`,
       {
         reply_markup: JSON.stringify({
           inline_keyboard: [[{ text: `BACK`, callback_data: 'BACK' }]],
@@ -175,7 +174,7 @@ bot.on('message', async (ctx) => {
       };
       request(options, async (error, response) => {
         if (error) throw new Error(error);
-        await fetch('http://192.168.1.53:3333/', {
+        await fetch('http://192.168.1.53:3333/command', {
           method: 'PUT',
           headers: {
             'Content-Type': 'application/json',

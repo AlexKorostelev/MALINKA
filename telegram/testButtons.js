@@ -34,4 +34,20 @@ bot
     ctx.reply(`You press ${ctx.callbackQuery.data}`, menu())
   });
 // запускаем бот
+
+bot.command('give', async (ctx) => {
+  await User.findOne({ })
+    .populate({
+      path: 'homes',
+      model: 'Home',
+      populate: {
+        path: 'pinSettingsId',
+        model: 'PinSetting',
+      },
+    })
+    .exec(function (err, user) {
+      console.log('Here is the populated user: ', user.homes[0].pinSettingsId[0].availableCommands);
+    });
+});
+
 bot.launch();
