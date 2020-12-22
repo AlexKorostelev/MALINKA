@@ -3,7 +3,7 @@ const LoremIpsum = require("lorem-ipsum").LoremIpsum;
 const mongoose = require('mongoose');
 const User = require('./user')
 const Home = require('./home')
-const PinSettings = require('./pinSettings')
+const PinSetting = require('./pinSettings')
 const sha256 = require('sha256')
 
 // lorem settings
@@ -28,29 +28,29 @@ mongoose.connect(process.env.MONGOOSE_DB, {
   console.log('DB connected');
 });
 
-const testSetting = new PinSettings({
+const testSetting = new PinSetting({
   name: lorem.generateWords(1),
   pinNum: Math.floor(Math.random() * 40),
   pinType: 'input',
-  availableCommands: ['Включить свет на кухне', 'Выключить свет на кухне']
+  availableCommands: ['Выключить свет на кухне', 'Включить свет на кухне']
 })
 
-const testSetting1 = new PinSettings({
+const testSetting1 = new PinSetting({
   name: lorem.generateWords(1),
   pinNum: Math.floor(Math.random() * 40),
   pinType: 'input',
-  availableCommands: ['Включить свет в гараже', 'Выключить свет в гараже']
+  availableCommands: ['Выключить свет в гараже', 'Включить свет в гараже']
 })
 
-const testSetting2 = new PinSettings({
+const testSetting2 = new PinSetting({
   name: lorem.generateWords(1),
   pinNum: Math.floor(Math.random() * 40),
   pinType: 'input',
-  availableCommands: ['Включить свет в подвале', 'Выключить свет в подвале']
+  availableCommands: ['Выключить свет в подвале', 'Включить свет в подвале']
 })
 
 async function seedHome() {
-  const dbArrPinSettings = await PinSettings.find()
+  const dbArrPinSettings = await PinSetting.find()
   const ArIdrPinSettings = dbArrPinSettings.map(el => el._id)
   const home = new Home({
     name: lorem.generateWords(1),
@@ -94,7 +94,7 @@ async function seedUser() {
 }
 
 async function seedAll(){
-  await seed(PinSettings, [testSetting, testSetting1, testSetting2])
+  await seed(PinSetting, [testSetting, testSetting1, testSetting2])
   await seedHome()
   await seedUser()
 }

@@ -6,6 +6,8 @@ const fs = require('fs');
 const mongoose = require('mongoose');
 const User = require('./models/user');
 const Home = require('./models/home');
+const PinSettings = require('./models/pinSettings');
+const { assert } = require('console');
 const telegramBotToken = process.env.BOT_TOKEN;
 const folderId = process.env.FOLDER_ID;
 const yandexToken = process.env.YANDEX_TOKEN;
@@ -21,15 +23,19 @@ connection.once('open', async () => {
 const checkIfRegistered = async (ctx, next) => {
   const userFound = await User.find({});
   try {
-    if(ctx.update?.callback_query?.message?.chat?.username){
-      if (userFound[0].tgLogin.includes(ctx.update.callback_query.message.chat.username)) {
+    if (ctx.update?.callback_query?.message?.chat?.username) {
+      if (
+        userFound[0].tgLogin.includes(
+          ctx.update.callback_query.message.chat.username
+        )
+      ) {
         await next();
       } else {
         ctx.reply(
           `Dear!!!! ${ctx.update.callback_query.message.chat.username}! You have not been registered by our managers`
         );
       }
-    }else{
+    } else {
       if (userFound[0].tgLogin.includes(ctx.update.message.from.username)) {
         await next();
       } else {
@@ -57,70 +63,91 @@ const giveNameToFile = (userIdTg) => {
 bot.use(checkIfRegistered);
 
 bot.start(async (ctx) => {
-  ctx.reply(`Greetings, ${ctx.message.from.username}!\nThe company "IoT Russia" wishes you and your loved ones the best!\n Please, use the following commands to navigate in the app\n /help - to get "About" page with all available comands\n/myHomes - to get the list of all the homes available to you`);
+  ctx.reply(
+    `Greetings, ${ctx.message.from.username}!\nThe company "IoT Russia" wishes you and your loved ones the best!\n Please, use the following commands to navigate in the app\n /help - to get "About" page with all available comands\n/myHomes - to get the list of all the homes available to you`
+  );
 });
 
 bot.help(async (ctx) => {
-  ctx.reply(`We are happy to give you a hand in navigating through the App, ${ctx.message.from.username}!\nOffical webpage: https://iot-russia.com\n\n/myHomes - to get the list of all the homes available to you`);
+  ctx.reply(
+    `We are happy to give you a hand in navigating through the App, ${ctx.message.from.username}!\nOffical webpage: https://iot-russia.com\n\n/myHomes - to get the list of all the homes available to you`
+  );
 });
 
 const menu = (listOfHomes) => {
-  return Telegraf.Extra
-    .markup((m) =>
-      m.inlineKeyboard([
-        [
-          m.callbackButton(listOfHomes[0], listOfHomes[0]),
-          m.callbackButton(listOfHomes[1], listOfHomes[1])
-        ]
-      ])
-    )
+  return Telegraf.Extra.markup((m) =>
+    m.inlineKeyboard([
+      [
+        m.callbackButton(listOfHomes[0], listOfHomes[0]),
+        m.callbackButton(listOfHomes[1], listOfHomes[1]),
+      ],
+    ])
+  );
 };
-
+bot.command('give', async (ctx) => {
+  await User.findOne({ })
+    .populate({
+      path: 'homes',
+      model: 'Home',
+      populate: {
+        path: 'pinSettingsId',
+        model: 'PinSetting',
+      },
+    })
+    .exec(function (err, user) {
+      console.log('Here is the populated user: ', user.homes[0].pinSettingsId[0].availableCommands);
+    });
+});
 bot.command('myHomes', async (ctx) => {
   let userHomes = await User.find({}).populate('homes');
-  console.log(userHomes[0].homes)
+  console.log(userHomes[0].homes);
   let userHomesToReturn = userHomes[0].homes.map(
     (eachHome) => `${eachHome.name}`
   );
- 
-  ctx.reply(`Please, find below the list of homes available to you:\n`, menu(userHomesToReturn))
 
-  bot.action(userHomesToReturn[0],(ctx)=>{
-    ctx.deleteMessage()
-    ctx.telegram.sendMessage(ctx.chat.id, `Please, find below the list of OPERATIONS available to you:\n"Включить свет"\n"Выключить свет"`, {
-      reply_markup: JSON.stringify({
-        inline_keyboard: [
-          [
-            { text: `BACK`, callback_data: 'BACK' },
-          ],
-        ],
-        selective: true
-      }),
-    });
-  })
+  ctx.reply(
+    `Please, find below the list of homes available to you:\n`,
+    menu(userHomesToReturn)
+  );
 
-  bot.action(userHomesToReturn[1],(ctx)=>{
-    ctx.deleteMessage()
-    ctx.telegram.sendMessage(ctx.chat.id, `Please, find below the list of OPERATIONS available to you:\n"Включить свет"\n"Выключить свет"`, {
-      reply_markup: JSON.stringify({
-        inline_keyboard: [
-          [
-            { text: `BACK`, callback_data: 'BACK' },
-          ],
-        ],
-        selective: true
-      }),
-    });
-  })
+  bot.action(userHomesToReturn[0], (ctx) => {
+    ctx.deleteMessage();
+    ctx.telegram.sendMessage(
+      ctx.chat.id,
+      `Please, find below the list of OPERATIONS available to you:\n"Включить свет"\n"Выключить свет"`,
+      {
+        reply_markup: JSON.stringify({
+          inline_keyboard: [[{ text: `BACK`, callback_data: 'BACK' }]],
+          selective: true,
+        }),
+      }
+    );
+  });
 
-  bot.action('BACK',(ctx)=>{
-    ctx.deleteMessage()
-    ctx.reply('Please, find below the list of homes available to you:\n',menu(userHomesToReturn))
-  })
+  bot.action(userHomesToReturn[1], (ctx) => {
+    ctx.deleteMessage();
+    ctx.telegram.sendMessage(
+      ctx.chat.id,
+      `Please, find below the list of OPERATIONS available to you:\n"Включить свет"\n"Выключить свет"`,
+      {
+        reply_markup: JSON.stringify({
+          inline_keyboard: [[{ text: `BACK`, callback_data: 'BACK' }]],
+          selective: true,
+        }),
+      }
+    );
+  });
+
+  bot.action('BACK', (ctx) => {
+    ctx.deleteMessage();
+    ctx.reply(
+      'Please, find below the list of homes available to you:\n',
+      menu(userHomesToReturn)
+    );
+  });
 });
 
 bot.on('message', async (ctx) => {
-  
   if (!ctx.update.message.voice) {
     ctx.reply('Could you please send Audio message instead');
     return;
@@ -147,15 +174,15 @@ bot.on('message', async (ctx) => {
         },
         body: binary,
       };
-      request(options, async(error, response) => {
+      request(options, async (error, response) => {
         if (error) throw new Error(error);
         await fetch('http://192.168.1.53:3333/', {
-            method: 'PUT',
-            headers: {
-              'Content-Type': 'application/json',
-            },
-            body: JSON.stringify({command: JSON.parse(response.body).result}),
-          });
+          method: 'PUT',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({ command: JSON.parse(response.body).result }),
+        });
         console.log(
           '\x1b[1m\x1b[33m%s\x1b[0m',
           JSON.parse(response.body).result
@@ -185,6 +212,3 @@ bot.on('message', async (ctx) => {
 });
 
 bot.launch();
-
-
-
