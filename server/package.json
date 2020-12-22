@@ -4,8 +4,8 @@
   "description": "",
   "main": "server.js",
   "scripts": {
-    "start": "node run server.js",
-    "dev": "nodemon app.js"
+    "start": "node app.js",
+    "dev": "nodemon run app.js"
   },
   "keywords": [],
   "author": "",
@@ -25,5 +25,10 @@
     "onoff": "^6.0.1",
     "request": "^2.88.2",
     "sha256": "^0.2.0"
+  },
+  "devDependencies": {
+    "eslint": "^7.16.0",
+    "eslint-config-airbnb-base": "^14.2.1",
+    "eslint-plugin-import": "^2.22.1"
   }
 }

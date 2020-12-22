@@ -3,7 +3,7 @@ const router = express.Router();
 const PinSettings = require('../models/pinSettings')
 
 router.get('/', async (req, res) => {
-  const pinSettings = await PinSettings.find()
+  const pinSettings = await PinSettings.find({}).populate()
   console.log(pinSettings);
   res.json(pinSettings)
 })
