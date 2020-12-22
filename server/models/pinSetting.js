@@ -1,6 +1,6 @@
 const mongoose = require('mongoose')
 
-const PinSettingsSchema = mongoose.Schema({
+const PinSettingSchema = mongoose.Schema({
   name: {
     type: String,
     required: true,
@@ -18,7 +18,9 @@ const PinSettingsSchema = mongoose.Schema({
     type: String,
     required: true,
   },
+  availableCommands: {
+    type: Array
+  },
 })
 
-const PinSettings = mongoose.model('PinSetting', PinSettingsSchema)
-module.exports = PinSettings;
+module.exports = mongoose.model('PinSetting', PinSettingSchema)
