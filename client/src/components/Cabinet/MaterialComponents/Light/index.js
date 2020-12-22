@@ -77,7 +77,7 @@ export default function SwitchesGroup() {
         .then((response) => response.json())
         .then((data) => console.log(data));
     }
-  };
+  };homelist
   return (
     <>
       <FormControl component="fieldset">

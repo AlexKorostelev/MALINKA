@@ -67,13 +67,11 @@ export default function Cabinet() {
             <h3>Все приборы</h3>
             <StateOfMalinka />
           </div>
-
         </div>
 
         <div className={classes.bottomContainer}>
           <ControlPanel />
         </div>
-
       </div>
     </>
   );

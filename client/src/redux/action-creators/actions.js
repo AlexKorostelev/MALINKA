@@ -8,6 +8,14 @@ function addPinSettings(arr) {
   };
 }
 
+function addHomes(arr) {
+  return {
+    type: TYPES.ADD_HOMES,
+    payload: arr,
+  };
+}
+
 export {
   addPinSettings,
+  addHomes,
 };

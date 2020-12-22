@@ -11,7 +11,7 @@ export default function StateOfMalinka() {
 
   useEffect(() => {
     (async () => {
-      const resp = await fetch('http://localhost:3001/data');
+      const resp = await fetch('http://localhost:3001/data/pinsettings');
       const data = await resp.json();
       dispatch(addPinSettings(data));
     })();

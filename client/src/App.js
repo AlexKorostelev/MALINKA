@@ -6,6 +6,7 @@ import {
 } from 'react-router-dom';
 import Main from './components/Main/Main';
 import Cabinet from './components/Cabinet/Cabinet';
+import HomeList from './components/HomeList/HomeList';
 
 function App() {
   return (
@@ -19,6 +20,10 @@ function App() {
 
         <Route path="/cabinet">
           <Cabinet />
+        </Route>
+
+        <Route path="/homelist">
+          <HomeList />
         </Route>
 
       </Switch>
