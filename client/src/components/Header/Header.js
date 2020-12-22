@@ -19,6 +19,7 @@ import AccountCircleIcon from '@material-ui/icons/AccountCircle';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import { Link as Scroll } from 'react-scroll';
 import axios from 'axios';
+import Tooltip from '@material-ui/core/Tooltip';
 
 const useStyles = makeStyles(() => ({
   root: {
@@ -39,6 +40,7 @@ const useStyles = makeStyles(() => ({
   },
   appbarTitle: {
     // flexGrow: '1',
+    userSelect: 'none',
   },
   icon: {
     color: '#fff',
@@ -57,6 +59,8 @@ const useStyles = makeStyles(() => ({
   goDown: {
     color: '#EE3261',
     fontSize: '4rem',
+  },
+  unselectable: {
   },
 }));
 
@@ -108,7 +112,9 @@ export default function Headers() {
             <span className={classes.colorText}><i>plus</i></span>
           </h1>
           <IconButton onClick={handleClickOpen}>
-            <AccountCircleIcon className={classes.icon} />
+            <Tooltip title="Login" placement="left-start">
+              <AccountCircleIcon className={classes.icon} />
+            </Tooltip>
           </IconButton>
           <Dialog open={open} onClose={handleClose} aria-labelledby="Authorization" className={classes.modal}>
             <DialogTitle id="Authorization">Authorization</DialogTitle>

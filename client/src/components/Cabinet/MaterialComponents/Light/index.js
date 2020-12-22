@@ -133,6 +133,128 @@ export default function SwitchesGroup() {
           />
         </FormGroup>
       </FormControl>
+      <FormControl component="fieldset">
+        <h3>Кухня</h3>
+        <FormGroup>
+          <FormControlLabel
+            control={(
+              <Switch
+                checked={state.first}
+                onChange={handleChange}
+                name="first"
+                classes={{
+                  track: classes.track,
+                }}
+              />
+            )}
+            label="Общий свет"
+            labelPlacement="start"
+            className={classes.toggle}
+            onClick={clickHandlerLight}
+          />
+          <FormControlLabel
+            control={(
+              <Switch
+                checked={state.first}
+                onChange={handleChange}
+                name="first"
+                classes={{
+                  track: classes.track,
+                }}
+              />
+            )}
+            label="Подсветка"
+            labelPlacement="start"
+            className={classes.toggle}
+            onClick={clickHandlerLight}
+          />
+          <FormControlLabel
+            control={(
+              <Switch
+                checked={state.second}
+                onChange={handleChange}
+                name="second"
+                classes={{
+                  track: classes.track,
+                }}
+              />
+            )}
+            label="Вытяжка"
+            labelPlacement="start"
+            className={classes.toggle}
+            onClick={clickHandlerSound}
+          />
+          <FormControlLabel
+            control={(
+              <Switch
+                checked={state.third}
+                onChange={handleChange}
+                classes={{
+                  track: classes.track,
+                }}
+                name="third"
+              />
+            )}
+            label="Розетка 1"
+            labelPlacement="start"
+            className={classes.toggle}
+            onClick={clickHandlerSound}
+          />
+        </FormGroup>
+      </FormControl>
+      <FormControl component="fieldset">
+        <h3>Спальня</h3>
+        <FormGroup>
+          <FormControlLabel
+            control={(
+              <Switch
+                checked={state.first}
+                onChange={handleChange}
+                name="first"
+                classes={{
+                  track: classes.track,
+                }}
+              />
+            )}
+            label="Общий свет"
+            labelPlacement="start"
+            className={classes.toggle}
+            onClick={clickHandlerLight}
+          />
+          <FormControlLabel
+            control={(
+              <Switch
+                checked={state.second}
+                onChange={handleChange}
+                name="second"
+                classes={{
+                  track: classes.track,
+                }}
+              />
+            )}
+            label="Лампа"
+            labelPlacement="start"
+            className={classes.toggle}
+            onClick={clickHandlerSound}
+          />
+          <FormControlLabel
+            control={(
+              <Switch
+                checked={state.third}
+                onChange={handleChange}
+                classes={{
+                  track: classes.track,
+                }}
+                name="third"
+              />
+            )}
+            label="Таршер"
+            labelPlacement="start"
+            className={classes.toggle}
+            onClick={clickHandlerSound}
+          />
+        </FormGroup>
+      </FormControl>
     </>
   );
 }

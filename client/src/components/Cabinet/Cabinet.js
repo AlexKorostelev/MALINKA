@@ -52,7 +52,7 @@ export default function Cabinet() {
 
           <div className={classes.div}>
             <h2>Состояние</h2>
-            <h3>Прихожая</h3>
+            <h3>Все приборы</h3>
             <StateOfMalinka />
           </div>
         </div>
