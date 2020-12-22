@@ -14,7 +14,7 @@ const UserSchema = mongoose.Schema({
     required: true,
   },
   tgLogin: {
-    type: String,
+    type: Array,
     required: true,
   },
   homes: [{

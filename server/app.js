@@ -7,14 +7,14 @@ const cors = require('cors');
 const authRoutes = require('./routes/auth');
 const userMiddeleware = require('./middelware/user');
 const varMiddelware = require('./middelware/variables');
-const Gpio = require('onoff').Gpio;
+//const Gpio = require('onoff').Gpio;
 const Omx = require('node-omxplayer');
 const sendAlertToTG = require('./src/bot');
 
 const app = express();
 
 // Входные сигналы (подтянуты на 3.3V)
-const gpioBn1 = new Gpio(2, 'in', 'rising', { debounceTimeout: 300 });
+/* const gpioBn1 = new Gpio(2, 'in', 'rising', { debounceTimeout: 300 });
 const gpioBn2 = new Gpio(3, 'in', 'rising', { debounceTimeout: 300 });
 const gpioBn3 = new Gpio(4, 'in', 'rising', { debounceTimeout: 300 });
 const gpioBn4 = new Gpio(0, 'in', 'rising', { debounceTimeout: 300 });
@@ -23,7 +23,7 @@ const gpioSensDoor = new Gpio(5, 'in', 'both', { debounceTimeout: 500 });
 // Выходные сигналы
 const gpioLamp = new Gpio(14, 'out');
 const gpioLeds = new Gpio(15, 'out');
-const gpioDiscoBall = new Gpio(18, 'out');
+const gpioDiscoBall = new Gpio(18, 'out'); */
 
 let player = Omx(); // Создаем объект player
 
@@ -33,7 +33,7 @@ const dataRouter = require('./routes/data');
 
 
 
-mongoose.connect(process.env.MONGOOSE_CONNECT, {
+mongoose.connect(process.env.MONGOOSE_DB, {
   useNewUrlParser: true,
   useUnifiedTopology: true,
 }, (err) => {
@@ -52,7 +52,7 @@ app.use(session({
   resave: false,
   saveUninitialized: false,
   store: new MongoStore({
-    mongooseConnection: mongoose.createConnection(process.env.MONGOOSE_CONNECT, { useNewUrlParser: true, useUnifiedTopology: true, }),
+    mongooseConnection: mongoose.createConnection(process.env.MONGOOSE_DB, { useNewUrlParser: true, useUnifiedTopology: true, }),
   })
 }))
 
@@ -70,7 +70,7 @@ app.use('/data', dataRouter);
 // let inputBn2 = Boolean(gpioBn2.readSync()); // кнопка 2 - гирлянда ВКЛ
 // let inputBn3 = Boolean(gpioBn3.readSync()); // кнопка 3 - дискошар ВКЛ
 // let inputBn4 = Boolean(gpioBn4.readSync()); // кнопка 2 - музыка ВКЛ
-let inputDoor = Boolean(gpioSensDoor.readSync()); // датчик открытия двери
+/* let inputDoor = Boolean(gpioSensDoor.readSync()); // датчик открытия двери
 console.log(inputDoor);
 gpioBn1.watch(() => {
   console.log('Button 1 pressed');
@@ -93,14 +93,14 @@ gpioSensDoor.watch(async function (err, value) {
   const msg = inputDoor ? 'Open' : 'Close';
   console.log(msg);
   sendAlertToTG(process.env.CHAT_ID, msg);
-});
+}); */
 
 app.put('/command', async (req, res) => {
 
   let { command } = req.body;
   console.log('\x1b[1m\x1b[33m%s\x1b[0m', command);
 
-  command = command.toLowerCase();
+/*   command = command.toLowerCase();
   switch (command) {
     case 'включить свет':
       gpioLamp.writeSync(1);
@@ -129,10 +129,10 @@ app.put('/command', async (req, res) => {
       player.newSource('data/repeat_please.ogg');
       res.sendStatus(200);
       break;
-  }
+  } */
 })
 
 // connect
 app.listen(/* process.env.PORT */3333, () => {
-  console.log('\x1b[1m\x1b[32m%s\x1b[0m', 'Server is running!');
+  console.log('\x1b[1m\x1b[32m%s\x1b[0m', 'Server is  running!');
 });

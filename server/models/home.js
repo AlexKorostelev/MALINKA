@@ -11,7 +11,7 @@ const HomeSchema = mongoose.Schema({
   },
   pinSettingsId: [{
     type: mongoose.Schema.Types.ObjectId,
-    ref: 'PinSettings',
+    ref: 'PinSetting',
     required: true,
   }]
 })
