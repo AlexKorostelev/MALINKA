@@ -35,7 +35,7 @@ const dataRouter = require('./routes/data');
 
 mongoose.connect(process.env.MONGOOSE_DB, {
   useNewUrlParser: true,
-  useUnifiedTopology: true,
+  useUnifiedTopology: false,
 }, (err) => {
   if (err) {
     return console.log(err);
