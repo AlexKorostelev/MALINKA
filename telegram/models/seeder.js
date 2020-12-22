@@ -3,7 +3,7 @@ const LoremIpsum = require("lorem-ipsum").LoremIpsum;
 const mongoose = require('mongoose');
 const User = require('./user')
 const Home = require('./home')
-const PinSetting = require('./pinSettings')
+const PinSetting = require('./pinSetting')
 const sha256 = require('sha256')
 
 // lorem settings
