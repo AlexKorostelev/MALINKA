@@ -9,6 +9,7 @@ const sendAlertToTG = require('./server/src/bot');
 
 const app = express();
 
+
 app.use(cors());
 app.use(express.json());
 
