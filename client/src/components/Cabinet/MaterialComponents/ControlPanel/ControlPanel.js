@@ -3,7 +3,7 @@ import { makeStyles } from '@material-ui/core/styles';
 
 const useStyles = makeStyles(() => ({
   div: {
-    color: 'lightsalmon',
+    color: 'rgb(220,216,181)',
   },
 }));
 
@@ -12,7 +12,8 @@ export default function ControlPanel() {
   return (
     <>
       <div className={classes.div}>
-        <h1>Тут будет погода и прочая херабора</h1>
+        <p>Тут будет погода и возможно что-то еще</p>
+        <p>asdasdasdasdasdasd</p>
       </div>
     </>
   );

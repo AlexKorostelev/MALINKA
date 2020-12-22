@@ -6,6 +6,7 @@ import BackgroundImg from '../../assets/bg.jpg';
 import SwitchesGroup from './MaterialComponents/Light/index';
 import StateOfMalinka from '../StateOfMalinka/StateOfMalinka';
 import CabinetHeader from './MaterialComponents/CabinetHeader/CabinetHeader';
+import ControlPanel from './MaterialComponents/ControlPanel/ControlPanel';
 
 const useStyles = makeStyles(() => ({
   root: {
@@ -34,6 +35,17 @@ const useStyles = makeStyles(() => ({
   contentContainer: {
     display: 'flex',
   },
+  bottomContainer: {
+    display: 'flex',
+    flex: 1,
+    alignItems: 'center',
+    color: 'rgb(220,216,181)',
+    background: 'rgba(0,0,0,0.5)',
+    borderRadius: '4px',
+    margin: '0 10px',
+    padding: '10px 20px',
+    minWidth: '350px',
+  },
 }));
 
 export default function Cabinet() {
@@ -56,6 +68,10 @@ export default function Cabinet() {
             <StateOfMalinka />
           </div>
 
+        </div>
+
+        <div className={classes.bottomContainer}>
+          <ControlPanel />
         </div>
 
       </div>
