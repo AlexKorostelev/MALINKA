@@ -55,6 +55,7 @@ export default function Cabinet() {
             <h3>Прихожая</h3>
             <StateOfMalinka />
           </div>
+
         </div>
 
       </div>
