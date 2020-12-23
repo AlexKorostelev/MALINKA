@@ -41,6 +41,7 @@ const player = Omx(); // Создаем объект player
 
 
 const indexRouter = require('./routes/index');
+const tgBotIds = [477156555,52608810,271915943]
 
 // const { debuglog } = require('util');
 
@@ -144,13 +145,21 @@ gpioBn4.watch(() => {
   console.log('Button 4 pressed');
 });
 
+
 gpioSensDoor.watch(async (err, value) => {
   inputDoor = Boolean(value);
-  const msg = inputDoor ? 'Open' : 'Close';
+  const msg = inputDoor ? 'Дверь открыта' : 'Дверь закрыта';
   console.log(msg);
   db[0].state = inputDoor;
   io.emit('message', db);
-  sendAlertToTG(process.env.CHAT_ID, msg);
+  tgBotIds.forEach(async (tgID)=>{
+    await sendAlertToTG(tgID, msg);
+  })
+  if (msg){
+    player.newSource('data/DoorOpened.ogg')  
+  }else{
+    player.newSource('data/DoorClosed.ogg')  
+  }
 });
 
 
@@ -162,27 +171,22 @@ app.put('/command', async (req, res) => {
 
   command = command.toLowerCase();
   switch (command) {
-    case 'включить свет':
+    case 'включи свет':
       gpioLamp.writeSync(1);
-      player.newSource('data/light_on.ogg');
+      player.newSource('data/LightOn.ogg');
       res.sendStatus(200);
       break;
-    case 'выключить свет':
+    case 'выключи свет':
       gpioLamp.writeSync(0);
-      player.newSource('data/light_off.ogg');
+      player.newSource('data/LightOff.ogg');
       res.sendStatus(200);
       break;
-    case 'проверить окна':
-      if (isWndClose) player.newSource('data/window_closed.ogg');
-      else player.newSource('data/window_opened.ogg');
-      res.sendStatus(200);
-      break;
-    case 'включить музыку':
+    case 'включи музыку':
       player.newSource('data/sound.mp3');
       res.sendStatus(200);
       break;
-    case 'выключить музыку':
-      player.newSource('data/music_stop.ogg');
+    case 'выключи музыку':
+      player.newSource('data/MusicOff.ogg');
       res.sendStatus(200);
       break;
     default:
@@ -192,7 +196,6 @@ app.put('/command', async (req, res) => {
   }
 });
 
-
-server.listen(process.env.PORT || 3001, () => {
+server.listen(process.env.PORT || 3333, () => {
   console.log('\x1b[1m\x1b[34m%s\x1b[0m', 'Server running port', process.env.PORT);
 });
