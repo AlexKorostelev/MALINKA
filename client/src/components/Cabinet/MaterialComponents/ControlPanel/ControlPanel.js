@@ -13,7 +13,6 @@ export default function ControlPanel() {
   return (
     <>
       <div className={classes.div}>
-        <p>Тут будет погода и возможно что-то еще</p>
         <Microphone />
       </div>
     </>

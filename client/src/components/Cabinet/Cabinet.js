@@ -39,6 +39,7 @@ const useStyles = makeStyles(() => ({
     display: 'flex',
     flex: 1,
     alignItems: 'center',
+    justifyContent: 'center',
     color: 'rgb(220,216,181)',
     background: 'rgba(0,0,0,0.5)',
     borderRadius: '4px',
