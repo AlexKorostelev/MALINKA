@@ -21,7 +21,7 @@ function App() {
 
         <UserRoute path="/cabinet" component={Cabinet} />
 
-        <Route path="/homelist" component={HomeList} />
+        <UserRoute path="/homelist" component={HomeList} />
 
         <Route>
           404
