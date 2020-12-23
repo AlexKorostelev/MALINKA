@@ -20,6 +20,7 @@ import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import { Link as Scroll } from 'react-scroll';
 import axios from 'axios';
 import Tooltip from '@material-ui/core/Tooltip';
+import { useDispatch } from 'react-redux';
 
 const useStyles = makeStyles(() => ({
   root: {
@@ -73,6 +74,7 @@ export default function Headers() {
   const [errorPassword, setErrorPassword] = useState(false);
 
   const history = useHistory();
+  const dispatch = useDispatch();
 
   useEffect(() => {
     setChecked(true);
@@ -91,8 +93,17 @@ export default function Headers() {
   const handleSendUser = () => {
     axios.post('http://localhost:3001/auth/login', { email, password })
       .then((res) => {
-        console.log(res.data);
-        setOpen(false);
+        console.log(res.status);
+        if (res.status === 200) {
+          dispatch({
+            type: 'LOGGED_IN_USER',
+            payload: {
+              email,
+            },
+          });
+        } else {
+          setOpen(false);
+        }
         // store.dispatch(AC.userLogin(data));
         history.push('/cabinet');
       })
