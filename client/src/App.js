@@ -29,6 +29,10 @@ function App() {
           <HomeList />
         </Route>
 
+        <Route>
+          404
+        </Route>
+
       </Switch>
     </Router>
   );

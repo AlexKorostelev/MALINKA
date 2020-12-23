@@ -9,7 +9,7 @@ import HomeWorkIcon from '@material-ui/icons/HomeWork';
 import AddCircleOutlineSharpIcon from '@material-ui/icons/AddCircleOutlineSharp';
 import { amber } from '@material-ui/core/colors';
 // import CabinetHeader from '../Cabinet/MaterialComponents/CabinetHeader/CabinetHeader';
-import BackgroundImg from '../../assets/bg.jpg';
+import BackgroundImg from '../../assets/newbg.jpeg';
 import { addHomes } from '../../redux/action-creators/actions';
 
 const useStyles = makeStyles(() => ({
