@@ -105,7 +105,7 @@ export default function Headers() {
           setOpen(false);
         }
         // store.dispatch(AC.userLogin(data));
-        history.push('/cabinet');
+        history.push('/homelist');
       })
       .catch((err) => {
         setErrorEmail(true);
