@@ -86,7 +86,6 @@ const menu = (listOfHomes) => {
 
 bot.command('myHomes', async (ctx) => {
   let userHomes = await User.find({}).populate('homes');
-  console.log(userHomes[0].homes);
   let userHomesToReturn = userHomes[0].homes.map(
     (eachHome) => `${eachHome.name}`
   );
