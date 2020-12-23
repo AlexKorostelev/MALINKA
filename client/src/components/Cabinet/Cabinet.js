@@ -44,7 +44,7 @@ const useStyles = makeStyles(() => ({
     color: 'rgb(220,216,181)',
     background: 'rgba(0,0,0,0.5)',
     borderRadius: '4px',
-    margin: '0 10px',
+    margin: '10px',
     padding: '10px 20px',
     minWidth: '350px',
   },

@@ -94,7 +94,7 @@ export default function Headers() {
         console.log(res.data);
         setOpen(false);
         // store.dispatch(AC.userLogin(data));
-        history.push('/cabinet');
+        history.push('/homelist');
       })
       .catch((err) => {
         setErrorEmail(true);
