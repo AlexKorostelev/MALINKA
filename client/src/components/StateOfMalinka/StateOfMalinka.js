@@ -1,10 +1,9 @@
 /* eslint-disable no-underscore-dangle */
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-// import StateCard from '../StateCard/StateCard';
 import io from 'socket.io-client';
-import StateCard2 from '../StateCard/StateCard2';
-
+import StateCard from '../StateCard/StateCard';
+// import StateCard from '../StateCard/StateCard';
 import { addPinSettings } from '../../redux/action-creators/actions';
 
 const socket = io('http://192.168.1.53:3333',
@@ -35,7 +34,7 @@ export default function StateOfMalinka() {
     return (
       <>
         {pinSettings.map((el) => (
-          <StateCard2
+          <StateCard
             key={el._id}
             state={el.state}
             name={el.name}

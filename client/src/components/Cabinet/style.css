@@ -1,9 +1,13 @@
-h1, h3 {
+h1{
   text-align: center;
   color: white;
   margin: 0;
 }
-
 #root {
   color: rgb(220,216,181) ;
+}
+h3{
+  color:rgb(238,53,97);
+  text-align: center;
+  margin: 0;
 }
