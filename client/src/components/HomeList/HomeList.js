@@ -8,7 +8,7 @@ import Link from '@material-ui/core/Link';
 import HomeWorkIcon from '@material-ui/icons/HomeWork';
 import AddCircleOutlineSharpIcon from '@material-ui/icons/AddCircleOutlineSharp';
 import { amber } from '@material-ui/core/colors';
-import CabinetHeader from '../Cabinet/MaterialComponents/CabinetHeader/CabinetHeader';
+// import CabinetHeader from '../Cabinet/MaterialComponents/CabinetHeader/CabinetHeader';
 import BackgroundImg from '../../assets/bg.jpg';
 import { addHomes } from '../../redux/action-creators/actions';
 
@@ -68,7 +68,7 @@ export default function HomeList() {
 
   return (
     <>
-      <CabinetHeader />
+      {/* <CabinetHeader /> */}
       <div className={classes.root}>
         <h2>Выберите ваш дом</h2>
         <CssBaseline />
