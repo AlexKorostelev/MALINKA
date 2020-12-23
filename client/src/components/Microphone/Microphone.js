@@ -22,7 +22,7 @@ const Microphone = () => {
   }
 
   function sendCommand(command) {
-    fetch('http://192.168.1.53:3333/', {
+    fetch('http://192.168.1.53:3333/command', {
       method: 'PUT',
       headers: {
         'Content-Type': 'application/json',
