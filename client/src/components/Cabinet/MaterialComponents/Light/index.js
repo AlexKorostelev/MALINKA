@@ -37,13 +37,13 @@ export default function SwitchesGroup() {
     const requestOptionsOn = {
       method: 'PUT',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ command: 'включить свет' }),
+      body: JSON.stringify({ command: 'включи свет' }),
     };
     // eslint-disable-next-line no-unused-vars
     const requestOptionsOff = {
       method: 'PUT',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ command: 'выключить свет' }),
+      body: JSON.stringify({ command: 'выключи свет' }),
     };
     if (event.target.checked) {
       fetch('http://192.168.1.53:3333/command', requestOptionsOn)
@@ -60,13 +60,13 @@ export default function SwitchesGroup() {
     const requestOptionsOn = {
       method: 'PUT',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ command: 'включить музыку' }),
+      body: JSON.stringify({ command: 'включи музыку' }),
     };
     // eslint-disable-next-line no-unused-vars
     const requestOptionsOff = {
       method: 'PUT',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ command: 'выключить музыку' }),
+      body: JSON.stringify({ command: 'выключи музыку' }),
     };
     if (event.target.checked) {
       fetch('http://192.168.1.53:3333/command', requestOptionsOn)
