@@ -7,7 +7,7 @@ import StateCard2 from '../StateCard/StateCard2';
 
 import { addPinSettings } from '../../redux/action-creators/actions';
 
-const socket = io('http://localhost:3001',
+const socket = io('http://192.168.1.53:3333',
   { transports: ['websocket'] });
 
 export default function StateOfMalinka() {
@@ -23,7 +23,7 @@ export default function StateOfMalinka() {
         console.log('message');
         dispatch(addPinSettings(data));
       });
-      const resp = await fetch('http://localhost:3001/data');
+      const resp = await fetch('http://192.168.1.53:3333/data');
       const data = await resp.json();
       dispatch(addPinSettings(data));
     })();

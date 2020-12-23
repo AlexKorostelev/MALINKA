@@ -9,20 +9,22 @@ import {
 } from '@material-ui/core';
 import SwipeableViews from 'react-swipeable-views';
 import { autoPlay } from 'react-swipeable-views-utils';
-import DaniilFace from '../../assets/faces/DanyaFace.png';
+import DaniilFace from '../../assets/faces/DANYA.png';
+import DaniusFace from '../../assets/faces/DEN.png';
+import AlekseyFace from '../../assets/faces/LEHA.png';
+import AleksFace from '../../assets/faces/SANYA.png';
+import StanislavFace from '../../assets/faces/STAN.png';
 
 const AutoPlaySwipeableViews = autoPlay(SwipeableViews);
 
 const tutorialSteps = [
   {
     label: 'Александр Коростелев',
-    imgPath:
-    'https://ca.slack-edge.com/T01D3EKLCPL-U01FWGG5X5K-577c7b5321f6-512',
+    imgPath: AleksFace,
   },
   {
     label: 'Дайнюс Пулокас',
-    imgPath:
-      'https://ca.slack-edge.com/T01D3EKLCPL-U01GARR6RGB-eebc60781b49-512',
+    imgPath: DaniusFace,
   },
   {
     label: 'Даниил Мишарев',
@@ -30,13 +32,11 @@ const tutorialSteps = [
   },
   {
     label: 'Станислав Гришин',
-    imgPath:
-    'https://ca.slack-edge.com/T01D3EKLCPL-U01DTTV3LRW-96f70ebbba90-512',
+    imgPath: StanislavFace,
   },
   {
     label: 'Алексей Максимушкин',
-    imgPath:
-    'https://ca.slack-edge.com/T01D3EKLCPL-U01GAHFM6JX-8fdb02043866-512',
+    imgPath: AlekseyFace,
   },
 ];
 
@@ -57,7 +57,7 @@ const useStyles = makeStyles((theme) => ({
   },
   header: {
     display: 'flex',
-    alignItems: 'flex-end',
+    alignItems: 'flex-start',
     justifyContent: 'center',
     backgroundColor: 'transparent',
     height: '80px',
@@ -79,6 +79,7 @@ const useStyles = makeStyles((theme) => ({
     fontFamily: 'Nunito',
   },
   title: {
+    color: '#EE3261',
     marginTop: '10vh',
     fontFamily: 'Nunito',
   },
@@ -97,14 +98,11 @@ export default function MainSlider({ checked }) {
     <>
       <div className={classes.sliderContainer}>
         <div className={classes.root} id="slider">
-          <h1 className={classes.title}>
-            Наша команда
-          </h1>
           <Collapse in={checked} {...(checked ? { timeout: 1000 } : {})}>
+            <h1 className={classes.title}>
+              Наша команда
+            </h1>
             <div className={classes.root}>
-              <Paper square elevation={0} className={classes.header}>
-                <Typography className={classes.typo}>{tutorialSteps[activeStep].label}</Typography>
-              </Paper>
               <AutoPlaySwipeableViews
                 axis={theme.direction === 'rtl' ? 'x-reverse' : 'x'}
                 index={activeStep}
@@ -119,6 +117,9 @@ export default function MainSlider({ checked }) {
                   </div>
                 ))}
               </AutoPlaySwipeableViews>
+              <Paper square elevation={0} className={classes.header}>
+                <Typography className={classes.typo}>{tutorialSteps[activeStep].label}</Typography>
+              </Paper>
             </div>
           </Collapse>
         </div>
