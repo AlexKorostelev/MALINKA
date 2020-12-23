@@ -1,5 +1,6 @@
 import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
+import Microphone from '../../../Microphone/Microphone';
 
 const useStyles = makeStyles(() => ({
   div: {
@@ -13,7 +14,7 @@ export default function ControlPanel() {
     <>
       <div className={classes.div}>
         <p>Тут будет погода и возможно что-то еще</p>
-        <p>asdasdasdasdasdasd</p>
+        <Microphone />
       </div>
     </>
   );

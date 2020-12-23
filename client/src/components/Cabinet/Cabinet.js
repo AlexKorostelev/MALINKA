@@ -2,7 +2,7 @@ import React from 'react';
 import './style.css';
 import { makeStyles } from '@material-ui/core/styles';
 import { CssBaseline } from '@material-ui/core';
-import BackgroundImg from '../../assets/bg.jpg';
+import BackgroundImg from '../../assets/newbg.jpeg';
 import SwitchesGroup from './MaterialComponents/Light/index';
 import StateOfMalinka from '../StateOfMalinka/StateOfMalinka';
 import CabinetHeader from './MaterialComponents/CabinetHeader/CabinetHeader';
