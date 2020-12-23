@@ -1,38 +1,48 @@
+/* eslint-disable max-len */
 /* eslint-disable react/prop-types */
+/* eslint-disable react/jsx-indent */
 import React from 'react';
+import EmojiObjectsIcon from '@material-ui/icons/EmojiObjects';
+import { green } from '@material-ui/core/colors';
 import { makeStyles } from '@material-ui/core/styles';
-import Card from '@material-ui/core/Card';
-import CardContent from '@material-ui/core/CardContent';
-import Typography from '@material-ui/core/Typography';
 
-const useStyles = makeStyles({
+const useStyles = makeStyles(() => ({
   root: {
-    minWidth: 275,
+    marginBottom: '7px',
   },
-  title: {
-    fontSize: 14,
+  mainContainer: {
+    display: 'flex',
+    alignItems: 'center',
   },
-  pos: {
-    marginBottom: 12,
-    color: 'rgb(168,164,136)',
+  stateName: {
+    margin: '5px 15px 10px 0',
+    paddingTop: '1px',
+    fontWeight: '400',
+    fontSize: '1rem',
+    letterSpacing: '0.00938em',
   },
-});
+  leftState: {
+    display: 'flex',
+    // justifyContent: 'flex-start',
+  },
+  rightLamps: {
+    // justifyContent: 'flexEnd',
+    display: 'flex',
+  },
+}));
 
-export default function StateCard({
-  state, name,
-}) {
+export default function StateCard({ state, name }) {
   const classes = useStyles();
   return (
-    <Card className={classes.root}>
-      <CardContent>
-        <Typography variant="h5" component="h2">
-          {name}
-        </Typography>
-
-        <Typography className={classes.pos} color="textSecondary">
-          {state ? 'Включено' : 'Выключено'}
-        </Typography>
-      </CardContent>
-    </Card>
+    <>
+      <div className={classes.mainContainer}>
+        <div className={classes.leftState}>
+          <span className={classes.stateName}>{name}</span>
+        </div>
+        <div className={classes.rightLamps}>
+          {state ? <EmojiObjectsIcon className={classes.root} style={{ color: green[500] }} /> : <EmojiObjectsIcon className={classes.root} />}
+        </div>
+      </div>
+    </>
   );
 }

@@ -5,8 +5,8 @@ import {
   IconButton,
   Toolbar,
 } from '@material-ui/core';
-import logoutIcon from '../../../../assets/sign-out-alt-solid.svg';
-// import {}
+import Tooltip from '@material-ui/core/Tooltip';
+import logoutIcon from '../../assets/sign-out-alt-solid.svg';
 
 const useStyles = makeStyles(() => ({
   root: {
@@ -17,6 +17,9 @@ const useStyles = makeStyles(() => ({
   },
   appbar: {
     background: 'none',
+  },
+  appbarTitle: {
+    userSelect: 'none',
   },
   appbarWrapper: {
     width: '80%',
@@ -47,7 +50,9 @@ export default function CabinetHeader() {
             <span className={classes.colorText}><i>plus</i></span>
           </h1>
           <IconButton onClick={logoutHandler}>
-            <img src={logoutIcon} width="30rem" alt="logout" />
+            <Tooltip title="Logout" placement="left-start">
+              <img src={logoutIcon} width="30rem" alt="logout" />
+            </Tooltip>
           </IconButton>
         </Toolbar>
       </AppBar>
