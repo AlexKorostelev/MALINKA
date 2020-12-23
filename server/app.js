@@ -22,6 +22,8 @@ const io = require('socket.io')(server);
 // routes
 const authRoutes = require('./routes/auth');
 const indexRouter = require('./routes/index');
+const dataRouter = require('./routes/data');
+
 
 // raspbery
 // Входные сигналы (подтянуты на 3.3V)
@@ -144,9 +146,9 @@ app.get('/data', async (req, res) => {
 });
 // sockets конец
 
-
 app.use('/', indexRouter);
 app.use('/auth', authRoutes);
+app.use('/data', dataRouter);
 
 // rasbery handler
 app.put('/command', async (req, res) => {
