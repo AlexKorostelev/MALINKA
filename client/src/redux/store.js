@@ -4,6 +4,7 @@ import rootReducer from './reducers/rootReducer';
 
 const initialState = {
   pinSettings: [],
+  homes: [],
 };
 
 const store = createStore(

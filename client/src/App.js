@@ -6,6 +6,8 @@ import {
 } from 'react-router-dom';
 import Main from './components/Main/Main';
 import Cabinet from './components/Cabinet/Cabinet';
+import HomeList from './components/HomeList/HomeList';
+import CabinetHeader from './components/CabinetHeader/CabinetHeader';
 
 function App() {
   return (
@@ -18,7 +20,13 @@ function App() {
         </Route>
 
         <Route path="/cabinet">
+          <CabinetHeader />
           <Cabinet />
+        </Route>
+
+        <Route path="/homelist">
+          <CabinetHeader />
+          <HomeList />
         </Route>
 
       </Switch>
