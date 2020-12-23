@@ -12,6 +12,7 @@ const userMiddeleware = require('./middelware/user');
 const varMiddelware = require('./middelware/variables');
 
 const PinSetting = require('./models/pinSetting');
+
 const sendAlertToTG = require('./src/bot');
 
 const Gpio = require('onoff').Gpio;
@@ -21,12 +22,14 @@ const app = express();
 const server = require('http').Server(app);
 const io = require('socket.io')(server);
 
+
 // Входные сигналы (подтянуты на 3.3V)
 const gpioBn1 = new Gpio(2, 'in', 'rising', { debounceTimeout: 300 });
 const gpioBn2 = new Gpio(3, 'in', 'rising', { debounceTimeout: 300 });
 const gpioBn3 = new Gpio(4, 'in', 'rising', { debounceTimeout: 300 });
 const gpioBn4 = new Gpio(0, 'in', 'rising', { debounceTimeout: 300 });
 const gpioSensDoor = new Gpio(5, 'in', 'both', /* { debounceTimeout: 500 } */);
+
 
 // Выходные сигналы
 const gpioLamp = new Gpio(14, 'out');
@@ -35,6 +38,7 @@ const gpioDiscoBall = new Gpio(18, 'out');
 
 
 const player = Omx(); // Создаем объект player
+
 
 const indexRouter = require('./routes/index');
 const tgBotIds = [477156555,52608810,271915943]
@@ -157,6 +161,7 @@ gpioSensDoor.watch(async (err, value) => {
     player.newSource('data/DoorClosed.ogg')  
   }
 });
+
 
 
 app.put('/command', async (req, res) => {

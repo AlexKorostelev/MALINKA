@@ -121,8 +121,6 @@ dist
 .yarn/build-state.yml
 .yarn/install-state.gz
 .pnp.*
-autoGettingYandexToken
-
 .DS_STORE
 node_modules
 scripts/flow/*/.flowconfig
@@ -148,4 +146,6 @@ chrome-user-data
 .vscode
 *.swp
 *.swo
+
+autoGettingYandexToken
 
