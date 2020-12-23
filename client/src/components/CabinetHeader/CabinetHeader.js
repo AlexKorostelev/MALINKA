@@ -6,7 +6,7 @@ import {
   Toolbar,
 } from '@material-ui/core';
 import Tooltip from '@material-ui/core/Tooltip';
-import logoutIcon from '../../../../assets/sign-out-alt-solid.svg';
+import logoutIcon from '../../assets/sign-out-alt-solid.svg';
 
 const useStyles = makeStyles(() => ({
   root: {

@@ -3,10 +3,10 @@ import React from 'react';
 import './style.css';
 import { makeStyles } from '@material-ui/core/styles';
 import { CssBaseline } from '@material-ui/core';
-import BackgroundImg from '../../assets/bg.jpg';
+import BackgroundImg from '../../assets/newbg.jpeg';
 import SwitchesGroup from './MaterialComponents/Light/index';
 import StateOfMalinka from '../StateOfMalinka/StateOfMalinka';
-import CabinetHeader from './MaterialComponents/CabinetHeader/CabinetHeader';
+// import CabinetHeader from './MaterialComponents/CabinetHeader/CabinetHeader';
 import ControlPanel from './MaterialComponents/ControlPanel/ControlPanel';
 
 const useStyles = makeStyles(() => ({
@@ -40,6 +40,7 @@ const useStyles = makeStyles(() => ({
     display: 'flex',
     flex: 1,
     alignItems: 'center',
+    justifyContent: 'center',
     color: 'rgb(220,216,181)',
     background: 'rgba(0,0,0,0.5)',
     borderRadius: '4px',
@@ -53,7 +54,7 @@ export default function Cabinet() {
   const classes = useStyles();
   return (
     <>
-      <CabinetHeader />
+      {/* <CabinetHeader /> */}
       <div id="root" className={classes.root}>
         <CssBaseline />
         <h1>Control Panel</h1>

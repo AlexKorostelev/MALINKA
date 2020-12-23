@@ -91,7 +91,7 @@ export default function Headers() {
   };
 
   const handleSendUser = () => {
-    axios.post('http://localhost:3001/auth/login', { email, password })
+    axios.post('http://192.168.1.53:3333/auth/login', { email, password })
       .then((res) => {
         console.log(res.status);
         if (res.status === 200) {

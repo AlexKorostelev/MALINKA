@@ -46,11 +46,11 @@ export default function SwitchesGroup() {
       body: JSON.stringify({ command: 'выключить свет' }),
     };
     if (event.target.checked) {
-      fetch('http://192.168.1.53:3333/', requestOptionsOn)
+      fetch('http://192.168.1.53:3333/command', requestOptionsOn)
         .then((response) => response.json())
         .then((data) => console.log(data));
     } else {
-      fetch('http://192.168.1.53:3333/', requestOptionsOff)
+      fetch('http://192.168.1.53:3333/command', requestOptionsOff)
         .then((response) => response.json())
         .then((data) => console.log(data));
     }
@@ -69,11 +69,11 @@ export default function SwitchesGroup() {
       body: JSON.stringify({ command: 'выключить музыку' }),
     };
     if (event.target.checked) {
-      fetch('http://192.168.1.53:3333/', requestOptionsOn)
+      fetch('http://192.168.1.53:3333/command', requestOptionsOn)
         .then((response) => response.json())
         .then((data) => console.log(data));
     } else {
-      fetch('http://192.168.1.53:3333/', requestOptionsOff)
+      fetch('http://192.168.1.53:3333/command', requestOptionsOff)
         .then((response) => response.json())
         .then((data) => console.log(data));
     }
