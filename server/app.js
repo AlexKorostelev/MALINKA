@@ -153,8 +153,13 @@ gpioSensDoor.watch(async (err, value) => {
   db[0].state = inputDoor;
   io.emit('message', db);
   tgBotIds.forEach(async (tgID)=>{
-    sendAlertToTG(tgID, msg);
-  })  
+    await sendAlertToTG(tgID, msg);
+  })
+  if (msg){
+    player.newSource('data/DoorOpened.ogg')  
+  }else{
+    player.newSource('data/DoorClosed.ogg')  
+  }
 });
 
 
@@ -168,17 +173,12 @@ app.put('/command', async (req, res) => {
   switch (command) {
     case 'включи свет':
       gpioLamp.writeSync(1);
-      player.newSource('data/light_on.ogg');
+      player.newSource('data/LightOn.ogg');
       res.sendStatus(200);
       break;
     case 'выключи свет':
       gpioLamp.writeSync(0);
-      player.newSource('data/light_off.ogg');
-      res.sendStatus(200);
-      break;
-    case 'проверить окна':
-      if (isWndClose) player.newSource('data/window_closed.ogg');
-      else player.newSource('data/window_opened.ogg');
+      player.newSource('data/LightOff.ogg');
       res.sendStatus(200);
       break;
     case 'включи музыку':
@@ -186,7 +186,7 @@ app.put('/command', async (req, res) => {
       res.sendStatus(200);
       break;
     case 'выключи музыку':
-      player.newSource('data/music_stop.ogg');
+      player.newSource('data/MusicOff.ogg');
       res.sendStatus(200);
       break;
     default:
@@ -196,7 +196,6 @@ app.put('/command', async (req, res) => {
   }
 });
 
-
-server.listen(process.env.PORT || 3001, () => {
+server.listen(process.env.PORT || 3333, () => {
   console.log('\x1b[1m\x1b[34m%s\x1b[0m', 'Server running port', process.env.PORT);
 });
