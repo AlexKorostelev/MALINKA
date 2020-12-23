@@ -4,10 +4,10 @@ import { useDispatch, useSelector } from 'react-redux';
 import './style.css';
 import { makeStyles } from '@material-ui/core/styles';
 import { CssBaseline } from '@material-ui/core';
-import Link from '@material-ui/core/Link';
 import HomeWorkIcon from '@material-ui/icons/HomeWork';
 import AddCircleOutlineSharpIcon from '@material-ui/icons/AddCircleOutlineSharp';
 import { amber } from '@material-ui/core/colors';
+import { Link } from 'react-router-dom';
 // import CabinetHeader from '../Cabinet/MaterialComponents/CabinetHeader/CabinetHeader';
 import BackgroundImg from '../../assets/newbg.jpeg';
 import { addHomes } from '../../redux/action-creators/actions';
@@ -77,14 +77,14 @@ export default function HomeList() {
           <div className={classes.main}>
             {homes.length ? homes.map((el) => (
               <div key={el._id} className={classes.childDiv}>
-                <Link href="/">
+                <Link to="/cabinet">
                   <HomeWorkIcon className={classes.icon} style={{ color: amber[50], fontSize: 50 }} fontSize="large" />
                 </Link>
                 <h4>{el.name}</h4>
               </div>
             )) : <div>пока нет домов</div>}
             <div className={classes.childDiv}>
-              <Link href="/">
+              <Link to="/">
                 <AddCircleOutlineSharpIcon className={classes.icon} style={{ color: amber[50], fontSize: 50 }} fontSize="large" />
               </Link>
               <h4>Добавить</h4>
