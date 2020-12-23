@@ -4,31 +4,36 @@ import {
   Switch,
   Route,
 } from 'react-router-dom';
+import { CssBaseline } from '@material-ui/core';
 import Main from './components/Main/Main';
 import Cabinet from './components/Cabinet/Cabinet';
 import HomeList from './components/HomeList/HomeList';
 import UserRoute from './components/routes/UserRoute';
+import PageNotFound from './components/PageNotFound/PageNotFound';
 
 function App() {
   return (
-    <Router>
+    <>
+      <CssBaseline />
+      <Router>
 
-      <Switch>
+        <Switch>
 
-        <Route exact path="/">
-          <Main />
-        </Route>
+          <Route exact path="/">
+            <Main />
+          </Route>
 
-        <UserRoute path="/cabinet" component={Cabinet} />
+          <UserRoute path="/cabinet" component={Cabinet} />
 
-        <UserRoute path="/homelist" component={HomeList} />
+          <UserRoute path="/homelist" component={HomeList} />
 
-        <Route>
-          404
-        </Route>
+          <Route>
+            <PageNotFound />
+          </Route>
 
-      </Switch>
-    </Router>
+        </Switch>
+      </Router>
+    </>
   );
 }
 

@@ -3,14 +3,14 @@
 /* eslint-disable react/prop-types */
 import { Route } from 'react-router-dom';
 import { useSelector } from 'react-redux';
-import LoadingToRedirect from './LoadingToRedirect';
+import CircularStatic from './LoadingToRedirect';
 
 const UserRoute = ({ children, ...rest }) => {
   // const history = useHistory();
 
   const user = useSelector((state) => (state.user));
 
-  return user ? <Route {...rest} /> : <LoadingToRedirect />;
+  return user ? <Route {...rest} /> : <CircularStatic />;
 };
 
 export default UserRoute;

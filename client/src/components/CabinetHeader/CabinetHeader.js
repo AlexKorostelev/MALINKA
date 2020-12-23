@@ -1,6 +1,7 @@
 import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import { useHistory } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
 import {
   AppBar,
   IconButton,
@@ -41,11 +42,17 @@ const useStyles = makeStyles(() => ({
 export default function CabinetHeader() {
   const classes = useStyles();
   const history = useHistory();
+  const dispatch = useDispatch();
   const logoutHandler = () => {
     axios.get('http://192.168.1.53:3333/auth/logout')
       .then((res) => {
-        console.log(res.data);
-        history.push('/');
+        if (res.status === 200) {
+          dispatch({
+            type: 'LOGOUT',
+            payload: null,
+          });
+          history.push('/');
+        }
       });
   };
   return (
