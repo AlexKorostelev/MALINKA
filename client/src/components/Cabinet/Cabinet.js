@@ -1,3 +1,4 @@
+/* eslint-disable import/no-named-as-default */
 import React from 'react';
 import './style.css';
 import { makeStyles } from '@material-ui/core/styles';
