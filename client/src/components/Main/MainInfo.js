@@ -31,7 +31,7 @@ function MainInfo() {
   const checked = useWindowPosition('header');
   return (
     <>
-      <div className={classes.root} id="place-to-visit">
+      <div className={classes.root} id="info">
         <ImageCard places={places[0]} checked={checked} />
         <span className={classes.arrow}>
           <Scroll to="slider" smooth>

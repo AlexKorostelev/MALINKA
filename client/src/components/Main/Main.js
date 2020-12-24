@@ -19,7 +19,7 @@ const useStyles = makeStyles(() => ({
 
 export default function Main() {
   const classes = useStyles();
-  const checked = useWindowPosition('place-to-visit');
+  const checked = useWindowPosition('info');
   return (
     <div className={classes.root}>
       <CssBaseline />
