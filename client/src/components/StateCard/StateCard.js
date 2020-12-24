@@ -17,16 +17,16 @@ const useStyles = makeStyles(() => ({
   stateName: {
     margin: '5px 15px 10px 0',
     paddingTop: '1px',
-    fontWeight: '400',
     fontSize: '1rem',
     letterSpacing: '0.00938em',
+    fontWeight: 400,
+    fontFamily: 'Roboto',
   },
   leftState: {
     display: 'flex',
-    // justifyContent: 'flex-start',
+    minWidth: '170px',
   },
   rightLamps: {
-    // justifyContent: 'flexEnd',
     display: 'flex',
   },
 }));

@@ -23,6 +23,7 @@ const useStyles = makeStyles(() => ({
     display: 'grid',
     alignContent: 'start',
     justifyContent: 'center',
+    fontFamily: 'Nunito',
   },
   div: {
     display: 'flex',
@@ -59,7 +60,7 @@ export default function Cabinet() {
       <CabinetHeader />
       <div id="root" className={classes.root}>
         <CssBaseline />
-        <h1>Control Panel</h1>
+        <h1>Панель управления</h1>
         <div className={classes.contentContainer}>
           <div className={classes.div}>
             <h2>Управление</h2>

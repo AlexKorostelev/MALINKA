@@ -28,6 +28,7 @@ export default function SwitchesGroup() {
     second: false,
     third: false,
     fourth: false,
+    fifth: true,
   });
 
   const handleChange = (event) => {
@@ -272,7 +273,7 @@ export default function SwitchesGroup() {
                 name="fourth"
               />
             )}
-            label="Таршер"
+            label="Торшер"
             labelPlacement="start"
             className={classes.toggle}
             onClick={clickHandlerSound}
