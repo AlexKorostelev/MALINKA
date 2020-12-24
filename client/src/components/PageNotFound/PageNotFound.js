@@ -28,7 +28,7 @@ export default function PageNotFound() {
     <>
       <div className={classes.err}>
         <h2 className={classes.errText}>
-          Page not found
+          404 - Page not found
         </h2>
       </div>
     </>
