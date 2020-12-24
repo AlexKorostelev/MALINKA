@@ -1,10 +1,13 @@
 import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
+import { useHistory } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
 import {
   AppBar,
   IconButton,
   Toolbar,
 } from '@material-ui/core';
+import axios from 'axios';
 import Tooltip from '@material-ui/core/Tooltip';
 import logoutIcon from '../../assets/sign-out-alt-solid.svg';
 
@@ -38,8 +41,19 @@ const useStyles = makeStyles(() => ({
 
 export default function CabinetHeader() {
   const classes = useStyles();
-  const logoutHandler = (e) => {
-    console.log(e.target);
+  const history = useHistory();
+  const dispatch = useDispatch();
+  const logoutHandler = () => {
+    axios.get('http://192.168.1.53:3333/auth/logout')
+      .then((res) => {
+        if (res.status === 200) {
+          dispatch({
+            type: 'LOGOUT',
+            payload: null,
+          });
+          history.push('/');
+        }
+      });
   };
   return (
     <div className={classes.root} id="header">
