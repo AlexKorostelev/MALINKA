@@ -27,6 +27,7 @@ export default function SwitchesGroup() {
     first: false,
     second: false,
     third: false,
+    fourth: false,
   });
 
   const handleChange = (event) => {
@@ -67,6 +68,29 @@ export default function SwitchesGroup() {
       method: 'PUT',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ command: 'выключи музыку' }),
+    };
+    if (event.target.checked) {
+      fetch('http://192.168.1.53:3333/command', requestOptionsOn)
+        .then((response) => response.json())
+        .then((data) => console.log(data));
+    } else {
+      fetch('http://192.168.1.53:3333/command', requestOptionsOff)
+        .then((response) => response.json())
+        .then((data) => console.log(data));
+    }
+  };
+
+  const clickHandlerDiscoball = (event) => {
+    const requestOptionsOn = {
+      method: 'PUT',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ command: 'включи гирлянду' }),
+    };
+    // eslint-disable-next-line no-unused-vars
+    const requestOptionsOff = {
+      method: 'PUT',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ command: 'выключи гирлянду' }),
     };
     if (event.target.checked) {
       fetch('http://192.168.1.53:3333/command', requestOptionsOn)
@@ -129,7 +153,7 @@ export default function SwitchesGroup() {
             label="Гирлянда"
             labelPlacement="start"
             className={classes.toggle}
-            onClick={clickHandlerSound}
+            onClick={clickHandlerDiscoball}
           />
         </FormGroup>
       </FormControl>
@@ -139,9 +163,9 @@ export default function SwitchesGroup() {
           <FormControlLabel
             control={(
               <Switch
-                checked={state.first}
+                checked={state.fourth}
                 onChange={handleChange}
-                name="first"
+                name="fourth"
                 classes={{
                   track: classes.track,
                 }}
@@ -155,9 +179,9 @@ export default function SwitchesGroup() {
           <FormControlLabel
             control={(
               <Switch
-                checked={state.first}
+                checked={state.fourth}
                 onChange={handleChange}
-                name="first"
+                name="fourth"
                 classes={{
                   track: classes.track,
                 }}
@@ -171,9 +195,9 @@ export default function SwitchesGroup() {
           <FormControlLabel
             control={(
               <Switch
-                checked={state.second}
+                checked={state.fourth}
                 onChange={handleChange}
-                name="second"
+                name="fourth"
                 classes={{
                   track: classes.track,
                 }}
@@ -187,12 +211,12 @@ export default function SwitchesGroup() {
           <FormControlLabel
             control={(
               <Switch
-                checked={state.third}
+                checked={state.fourth}
                 onChange={handleChange}
                 classes={{
                   track: classes.track,
                 }}
-                name="third"
+                name="fourth"
               />
             )}
             label="Розетка 1"
@@ -208,9 +232,9 @@ export default function SwitchesGroup() {
           <FormControlLabel
             control={(
               <Switch
-                checked={state.first}
+                checked={state.fourth}
                 onChange={handleChange}
-                name="first"
+                name="fourth"
                 classes={{
                   track: classes.track,
                 }}
@@ -224,9 +248,9 @@ export default function SwitchesGroup() {
           <FormControlLabel
             control={(
               <Switch
-                checked={state.second}
+                checked={state.fourth}
                 onChange={handleChange}
-                name="second"
+                name="fourth"
                 classes={{
                   track: classes.track,
                 }}
@@ -240,12 +264,12 @@ export default function SwitchesGroup() {
           <FormControlLabel
             control={(
               <Switch
-                checked={state.third}
+                checked={state.fourth}
                 onChange={handleChange}
                 classes={{
                   track: classes.track,
                 }}
-                name="third"
+                name="fourth"
               />
             )}
             label="Таршер"

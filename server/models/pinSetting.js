@@ -22,5 +22,5 @@ const PinSettingSchema = mongoose.Schema({
     type: Array
   },
 })
-
-module.exports = mongoose.model('PinSetting', PinSettingSchema)
+const PinSettings = mongoose.model('PinSetting', PinSettingSchema)
+module.exports = PinSettings

@@ -1,9 +1,9 @@
 require('dotenv').config()
 const LoremIpsum = require("lorem-ipsum").LoremIpsum;
 const mongoose = require('mongoose');
-const User = require('./user')
-const Home = require('./home')
-const PinSetting = require('./pinSetting')
+const User = require('./models/user')
+const Home = require('./models/home')
+const PinSetting = require('./models/pinSetting')
 const sha256 = require('sha256')
 
 // lorem settings
@@ -29,24 +29,21 @@ mongoose.connect(process.env.MONGOOSE_DB, {
 });
 
 const testSetting = new PinSetting({
-  name: lorem.generateWords(1),
+  name: "Кондиционер",
   pinNum: Math.floor(Math.random() * 40),
   pinType: 'input',
-  availableCommands: ['Выключить свет на кухне', 'Включить свет на кухне']
 })
 
 const testSetting1 = new PinSetting({
-  name: lorem.generateWords(1),
+  name: 'Окно зал',
   pinNum: Math.floor(Math.random() * 40),
   pinType: 'input',
-  availableCommands: ['Выключить свет в гараже', 'Включить свет в гараже']
 })
 
 const testSetting2 = new PinSetting({
-  name: lorem.generateWords(1),
+  name: 'Окно кухня',
   pinNum: Math.floor(Math.random() * 40),
   pinType: 'input',
-  availableCommands: ['Выключить свет в подвале', 'Включить свет в подвале']
 })
 
 async function seedHome() {
@@ -55,13 +52,13 @@ async function seedHome() {
   const home = new Home({
     name: lorem.generateWords(1),
     location: lorem.generateWords(2) + Math.floor(Math.random() * 10),
-    pinSettingsId:[ArIdrPinSettings[0],ArIdrPinSettings[2]]
+    pinSettingsId: [ArIdrPinSettings[0], ArIdrPinSettings[2]]
   })
 
   const home1 = new Home({
     name: lorem.generateWords(1),
     location: lorem.generateWords(2) + Math.floor(Math.random() * 10),
-    pinSettingsId:[ArIdrPinSettings[0], ArIdrPinSettings[1]]
+    pinSettingsId: [ArIdrPinSettings[0], ArIdrPinSettings[1]]
 
   })
 
@@ -72,6 +69,8 @@ async function seedHome() {
 async function seed(model, arr) {
   await model.insertMany(arr);
   console.log('Pins added');
+  await mongoose.disconnect();
+  console.log('DB disconnected');
 }
 
 async function seedUser() {
@@ -83,7 +82,7 @@ async function seedUser() {
     name: lorem.generateWords(1),
     password: sha256('123'),
     email: lorem.generateWords(1),
-    tgLogin: [lorem.generateWords(1),lorem.generateWords(1),lorem.generateWords(1)],
+    tgLogin: [lorem.generateWords(1), lorem.generateWords(1), lorem.generateWords(1)],
     homes: ArrIdHomes,
   })
 
@@ -93,9 +92,10 @@ async function seedUser() {
   console.log('DB disconnected');
 }
 
-async function seedAll(){
-  await seed(PinSetting, [testSetting, testSetting1, testSetting2])
-  await seedHome()
-  await seedUser()
-}
-seedAll()
+// async function seedAll(){
+//   await seed(PinSetting, [testSetting, testSetting1, testSetting2])
+//   await seedHome()
+//   await seedUser()
+// }
+// seedAll()
+seed(PinSetting, [testSetting, testSetting1, testSetting2])
