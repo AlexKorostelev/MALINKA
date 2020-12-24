@@ -1,3 +1,5 @@
+/* eslint-disable import/extensions */
+/* eslint-disable import/no-unresolved */
 /* eslint-disable import/no-named-as-default */
 import React from 'react';
 import './style.css';
@@ -6,7 +8,7 @@ import { CssBaseline } from '@material-ui/core';
 import BackgroundImg from '../../assets/newbg.jpeg';
 import SwitchesGroup from './MaterialComponents/Light/index';
 import StateOfMalinka from '../StateOfMalinka/StateOfMalinka';
-// import CabinetHeader from './MaterialComponents/CabinetHeader/CabinetHeader';
+import CabinetHeader from '../CabinetHeader/CabinetHeader';
 import ControlPanel from './MaterialComponents/ControlPanel/ControlPanel';
 
 const useStyles = makeStyles(() => ({
@@ -44,7 +46,7 @@ const useStyles = makeStyles(() => ({
     color: 'rgb(220,216,181)',
     background: 'rgba(0,0,0,0.5)',
     borderRadius: '4px',
-    margin: '0 10px',
+    margin: '10px',
     padding: '10px 20px',
     minWidth: '350px',
   },
@@ -54,7 +56,7 @@ export default function Cabinet() {
   const classes = useStyles();
   return (
     <>
-      {/* <CabinetHeader /> */}
+      <CabinetHeader />
       <div id="root" className={classes.root}>
         <CssBaseline />
         <h1>Control Panel</h1>
