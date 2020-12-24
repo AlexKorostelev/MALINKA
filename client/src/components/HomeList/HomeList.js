@@ -40,6 +40,24 @@ const useStyles = makeStyles(() => ({
   },
   icon: {
     margin: '0',
+    color: amber[50],
+    fontSize: 55,
+    '&:hover': {
+      color: '#EE3261',
+      transition: '.4s',
+      padding: '1px',
+    },
+  },
+  iconCircle: {
+    margin: '0',
+    color: amber[50],
+    fontSize: 55,
+    '&:hover': {
+      color: '#EE3261',
+      transition: '.7s',
+      padding: '1px',
+      transform: 'rotate(180deg)',
+    },
   },
   main: {
     display: 'flex',
@@ -79,14 +97,14 @@ export default function HomeList() {
             {homes.length ? homes.map((el) => (
               <div key={el._id} className={classes.childDiv}>
                 <Link to="/cabinet">
-                  <HomeWorkIcon className={classes.icon} style={{ color: amber[50], fontSize: 50 }} fontSize="large" />
+                  <HomeWorkIcon className={classes.icon} fontSize="large" />
                 </Link>
                 <h4>{el.name}</h4>
               </div>
             )) : <div>пока нет домов</div>}
             <div className={classes.childDiv}>
               <Link to="/">
-                <AddCircleOutlineSharpIcon className={classes.icon} style={{ color: amber[50], fontSize: 50 }} fontSize="large" />
+                <AddCircleOutlineSharpIcon className={classes.iconCircle} fontSize="large" />
               </Link>
               <h4>Добавить</h4>
             </div>
