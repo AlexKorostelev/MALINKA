@@ -100,7 +100,7 @@ export default function MainSlider({ checked }) {
         <div className={classes.root} id="slider">
           <Collapse in={checked} {...(checked ? { timeout: 1000 } : {})}>
             <h1 className={classes.title}>
-              Наша команда
+              Команда разработчиков
             </h1>
             <div className={classes.root}>
               <AutoPlaySwipeableViews

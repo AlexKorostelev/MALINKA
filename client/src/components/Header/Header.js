@@ -42,6 +42,7 @@ const useStyles = makeStyles(() => ({
   appbarTitle: {
     // flexGrow: '1',
     userSelect: 'none',
+    cursor: 'pointer',
   },
   icon: {
     color: '#fff',
@@ -118,10 +119,12 @@ export default function Headers() {
     <div className={classes.root} id="header">
       <AppBar className={classes.appbar} elevation={0}>
         <Toolbar className={classes.appbarWrapper}>
-          <h1 className={classes.appbarTitle}>
-            MALINKA
-            <span className={classes.colorText}><i>plus</i></span>
-          </h1>
+          <Scroll to="header" smooth>
+            <h1 className={classes.appbarTitle}>
+              MALINKA
+              <span className={classes.colorText}><i>plus</i></span>
+            </h1>
+          </Scroll>
           <IconButton onClick={handleClickOpen}>
             <Tooltip title="Login" placement="left-start">
               <AccountCircleIcon className={classes.icon} />
@@ -169,7 +172,7 @@ export default function Headers() {
             MALINKA
             <span className={classes.colorText}><i>plus</i></span>
           </h1>
-          <Scroll to="place-to-visit" smooth>
+          <Scroll to="info" smooth>
             <IconButton>
               <ExpandMoreIcon className={classes.goDown} />
             </IconButton>
