@@ -31,6 +31,15 @@
 ![About](https://github.com/AlexKorostelev/MALINKA/blob/master/client/src/assets/screenshots/screen2.png "Описание")
 #### Авторизация пользователя:
 ![Authorization](https://github.com/AlexKorostelev/MALINKA/blob/master/client/src/assets/screenshots/screen3.png "Авторизация")
+#### Пользователь не сможет перейти на страницу личного кабинета если не авторизовался в системе:
+![Redirect](https://github.com/AlexKorostelev/MALINKA/blob/master/client/src/assets/screenshots/screen4.png "Редирект")
+#### 404:
+![404](https://github.com/AlexKorostelev/MALINKA/blob/master/client/src/assets/screenshots/screen5.png "404")
+#### Панель выбора домов. Доступна после авторизации, повзоляет юзеру выбрать локацию которой он хочет управлять:
+![Homes](https://github.com/AlexKorostelev/MALINKA/blob/master/client/src/assets/screenshots/screen6.png "Панель выбора домов")
+#### Панель управления домом и мониторинг состояния приборов в нем. Правая часть, с состоянием приборов, реализована на WebSockets. В нижней части - управление и проверка состояния с голоса:
+![Control panel](https://github.com/AlexKorostelev/MALINKA/blob/master/client/src/assets/screenshots/screen7.png "Панель управления")
+
 
 ### Наша команда
 * [Алекандр Коростелев](https://github.com/AlexKorostelev)
@@ -38,3 +47,4 @@
 * [Даниил Мишарев](https://github.com/DaniilMisharev)
 * [Станислав Гришин](https://github.com/stangrishin)
 * [Алексей Максимушкин](https://github.com/Aleksei-web)
+### Планы на будущее
