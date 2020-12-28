@@ -11,6 +11,7 @@
 * Node.js
 * Express
 * Mongo DB
+* Web Sockets
 * Atlas
 * Sass
 * Telegraf
