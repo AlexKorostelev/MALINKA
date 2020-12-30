@@ -34,7 +34,7 @@
 ![Redirect](https://github.com/AlexKorostelev/MALINKA/blob/master/client/src/assets/screenshots/screen4.png "Редирект")
 #### 404:
 ![404](https://github.com/AlexKorostelev/MALINKA/blob/master/client/src/assets/screenshots/screen5.png "404")
-#### Панель выбора домов. Доступна после авторизации, повзоляет пользователю выбрать локацию, которой он хочет управлять:
+#### Панель выбора домов. Доступна после авторизации, позволяет пользователю выбрать локацию, которой он хочет управлять:
 ![Homes](https://github.com/AlexKorostelev/MALINKA/blob/master/client/src/assets/screenshots/screen6.png "Панель выбора домов")
 #### Панель управления домом и мониторинг состояния приборов в нем. Правая часть (состояния приборов) реализована на WebSockets. В нижней части располагается компонент управления и проверки состояния посредством голосовых команд:
 ![Control panel](https://github.com/AlexKorostelev/MALINKA/blob/master/client/src/assets/screenshots/screen7.png "Панель управления")
